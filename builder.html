@@ -119,7 +119,7 @@
 <footer>Flowers Pavon · Northern Virginia · Drop real stem photos into assets/build/</footer>
 
 <script>
-const SHOP={name:"Flowers Pavon",whatsapp:"17039534542"};
+const SHOP={name:"Flowers Pavon",whatsapp:"17039534542",site:"flowerspavon.com",tagline:"Handcrafted floral artistry"};
 const IMG_BASE='assets/build/';
 function assetUrl(file){return IMG_BASE+encodeURIComponent(file);}
 
@@ -493,11 +493,83 @@ function preset(name){
   PRESETS[name].forEach(id=>state.stems.push(makeStem(id)));
   render();
 }
+// ===== v11: branded share card — turn the bouquet you built into a shareable picture =====
 function saveImg(){
   if(typeof html2canvas==='undefined'){alert('Connect to the internet once to enable saving your bouquet as an image. Everything else works offline.');return;}
-  html2canvas(document.getElementById('stage'),{backgroundColor:'#fff6f8',scale:2,logging:false}).then(function(cv){
-    const a=document.createElement('a');a.download='my-bouquet.png';a.href=cv.toDataURL('image/png');a.click();
-  }).catch(function(){alert('Could not save the image right now.');});
+  toast('Creating your bouquet picture\u2026 \uD83D\uDCF8');
+  html2canvas(document.getElementById('stage'),{backgroundColor:'#fff6f8',scale:2,logging:false,useCORS:true}).then(function(cv){
+    const card=buildShareCard(cv);
+    card.toBlob(function(blob){
+      if(!blob){alert('Could not create the image right now.');return;}
+      if(window.__shareUrl)URL.revokeObjectURL(window.__shareUrl);
+      window.__shareBlob=blob;window.__shareUrl=URL.createObjectURL(blob);
+      openShare(window.__shareUrl);
+    },'image/png');
+  }).catch(function(){alert('Could not create the image right now.');});
+}
+// Describe the exact bouquet the customer built (works for classic + ramo buch\u00f3n)
+function shareInfo(){
+  const rib=curRibbon();
+  if(state.template&&state.template!=='classic'){
+    const shape=state.template==='heart'?'Heart':'Round';
+    return {title:shape+' Ramo Buch\u00f3n',
+      lines:['Wall '+BYID[state.bu.wall].label+' \u00b7 fill '+BYID[state.bu.fill].label,
+             'Center '+BYID[state.bu.center].label+' \u00b7 '+curWrap().label+' wrap'+(rib.c?' \u00b7 '+rib.label+' bow':'')],
+      total:total()};
+  }
+  const parts=CATALOG.filter(c=>countOf(c.id)>0).map(c=>countOf(c.id)+'\u00d7 '+c.label);
+  return {title:state.size+' hand-tied bouquet',
+    lines:[parts.join(' \u00b7 ')||'A bouquet made with love',
+           curWrap().label+' wrap'+(rib.c?' \u00b7 '+rib.label+' ribbon':'')],
+    total:total()};
+}
+function rr(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+function fitText(x,str,max){if(x.measureText(str).width<=max)return str;while(str.length>4&&x.measureText(str+'\u2026').width>max)str=str.slice(0,-1);return str+'\u2026';}
+function buildShareCard(stageCv){
+  const W=1080,H=1350,cv=document.createElement('canvas');cv.width=W;cv.height=H;const x=cv.getContext('2d');
+  const bg=x.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#fff8f9');bg.addColorStop(1,'#f7e6ec');x.fillStyle=bg;x.fillRect(0,0,W,H);
+  const vg=x.createRadialGradient(W/2,H*0.32,120,W/2,H*0.32,W*0.82);vg.addColorStop(0,'rgba(255,255,255,.55)');vg.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=vg;x.fillRect(0,0,W,H);
+  x.textAlign='center';x.textBaseline='alphabetic';
+  x.fillStyle='#c9557f';x.font='600 30px Georgia,serif';x.fillText('\u2740',W/2,92);
+  x.fillStyle='#29222c';x.font='700 62px Georgia,serif';x.fillText(SHOP.name,W/2,150);
+  x.fillStyle='#8b7f89';x.font='700 22px -apple-system,Segoe UI,Roboto,sans-serif';x.fillText((SHOP.tagline||'Handcrafted floral artistry').toUpperCase(),W/2,192);
+  x.strokeStyle='#e6c6d4';x.lineWidth=2;x.beginPath();x.moveTo(W/2-150,218);x.lineTo(W/2+150,218);x.stroke();
+  const cardX=90,cardY=250,cardW=W-180,cardH=740;
+  x.save();x.shadowColor='rgba(120,40,70,.22)';x.shadowBlur=40;x.shadowOffsetY=18;x.fillStyle='#ffffff';rr(x,cardX,cardY,cardW,cardH,34);x.fill();x.restore();
+  const pad=26,availW=cardW-pad*2,availH=cardH-pad*2,sc=Math.min(availW/stageCv.width,availH/stageCv.height),iw=stageCv.width*sc,ih=stageCv.height*sc,ix=cardX+(cardW-iw)/2,iy=cardY+(cardH-ih)/2;
+  x.save();rr(x,cardX+10,cardY+10,cardW-20,cardH-20,26);x.clip();x.drawImage(stageCv,ix,iy,iw,ih);x.restore();
+  const tag=SHOP.site||'flowerspavon.com';
+  x.font='700 26px -apple-system,Segoe UI,Roboto,sans-serif';const tw=x.measureText('\uD83C\uDF38 '+tag).width+40;
+  x.save();x.fillStyle='rgba(41,34,44,.82)';rr(x,cardX+cardW-tw-26,cardY+cardH-72,tw,46,23);x.fill();x.fillStyle='#fff';x.textAlign='left';x.fillText('\uD83C\uDF38 '+tag,cardX+cardW-tw-26+18,cardY+cardH-41);x.restore();
+  const info=shareInfo();x.textAlign='center';
+  x.fillStyle='#29222c';x.font='600 44px Georgia,serif';x.fillText(fitText(x,info.title,W-160),W/2,1074);
+  x.fillStyle='#8b7f89';x.font='400 25px -apple-system,Segoe UI,Roboto,sans-serif';let ly=1120;info.lines.forEach(function(ln){x.fillText(fitText(x,ln,W-200),W/2,ly);ly+=38;});
+  const pl='Total  $'+info.total;x.font='800 40px -apple-system,Segoe UI,Roboto,sans-serif';const pw=x.measureText(pl).width+80;
+  x.fillStyle='#d6336c';rr(x,W/2-pw/2,ly+6,pw,66,33);x.fill();x.fillStyle='#fff';x.fillText(pl,W/2,ly+50);
+  x.fillStyle='#a92a58';x.font='700 24px -apple-system,Segoe UI,Roboto,sans-serif';x.fillText('Build your own at '+tag+'  \u00b7  Northern Virginia',W/2,H-44);
+  return cv;
+}
+// share/download modal
+(function(){
+  const m=document.createElement('div');m.id='shareModal';m.className='sharemodal';m.setAttribute('aria-hidden','true');
+  m.innerHTML='<div class="sharebox" role="dialog" aria-modal="true"><button class="shareclose" type="button" aria-label="Close" onclick="closeShare()">\u2715</button><h3>Your bouquet \uD83D\uDC90</h3><p class="sharesub">Save the picture or share it with your people.</p><div class="shareprev"><img id="shareImg" alt="Your bouquet picture"></div><div class="sharebtns"><button class="btn btn-accent" type="button" onclick="downloadShare()">\u2B07 Download</button><button class="btn btn-whatsapp" type="button" onclick="shareShare()">\uD83D\uDCE4 Share</button></div><p class="sharehint" id="shareHint"></p></div>';
+  document.body.appendChild(m);
+  m.addEventListener('click',function(e){if(e.target===m)closeShare();});
+  window.addEventListener('keydown',function(e){if(e.key==='Escape')closeShare();});
+})();
+function openShare(url){const m=document.getElementById('shareModal');document.getElementById('shareImg').src=url;document.getElementById('shareHint').textContent=navigator.share?'':'Tip: download it, then attach it to any message, post or email.';m.classList.add('open');m.setAttribute('aria-hidden','false');}
+function closeShare(){const m=document.getElementById('shareModal');if(m){m.classList.remove('open');m.setAttribute('aria-hidden','true');}}
+function downloadShare(){if(!window.__shareUrl)return;const a=document.createElement('a');a.download=SHOP.name.replace(/\s+/g,'-').toLowerCase()+'-bouquet.png';a.href=window.__shareUrl;a.click();toast('Saved to your device \uD83D\uDCE5');}
+async function shareShare(){
+  if(!window.__shareBlob){return;}
+  const info=shareInfo();const text='My '+info.title+' from '+SHOP.name+' \u2014 '+(SHOP.site||'')+' \uD83C\uDF38';
+  try{
+    const file=new File([window.__shareBlob],'my-bouquet.png',{type:'image/png'});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:SHOP.name+' bouquet',text:text});return;}
+    if(navigator.share){await navigator.share({title:SHOP.name+' bouquet',text:text});return;}
+  }catch(e){if(e&&e.name==='AbortError')return;}
+  downloadShare();
+  const h=document.getElementById('shareHint');if(h)h.textContent='Sharing isn\u2019t available in this browser \u2014 downloaded instead so you can send it anywhere.';
 }
 
 // ---- drag (step 1 only)
@@ -587,6 +659,9 @@ function init(){
 }
 init();
 window.addEventListener('resize',()=>render());
+// keep the built-bouquet preview pinned just below the sticky header on phones
+function syncStick(){const h=document.querySelector('.bheader');if(h)document.documentElement.style.setProperty('--stickTop',Math.max(0,h.offsetHeight-1)+'px');}
+syncStick();window.addEventListener('resize',syncStick);window.addEventListener('load',syncStick);
 </script>
 <script>
 /* ===== v8: Ramo Buchon template engine (classic | round | heart) ===== */
