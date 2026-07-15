@@ -8,6 +8,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site.css">
+<style>
+#catalog .bq .ph-link{display:block;position:relative;text-decoration:none}
+#catalog .bq h3 .ttl-link{color:inherit;text-decoration:none}
+#catalog .bq h3 .ttl-link:hover{color:#c9556f}
+#catalog .bq .detail-link{margin-top:8px;font-family:var(--px);font-size:10.5px;letter-spacing:.05em;color:var(--terra);text-decoration:none;align-self:flex-start}
+#catalog .bq .detail-link:hover{text-decoration:underline}
+</style>
 </head>
 <body>
 
@@ -105,7 +112,65 @@
 
 <section class="sec" id="anatomy">
   <div class="wrap ana-grid">
-    <div class="ana-art rv"><img class="ana-photo" src="assets/gallery/g8.jpg" alt="The parts of a bouquet — focal roses, filler baby's breath, greenery and a hand-tied wrap"></div>
+    <div class="ana-art rv">
+      <svg class="ana-photo ana-svg" viewBox="0 0 560 520" role="img" aria-label="Diagram of a bouquet's four parts: focal flowers, filler flowers, greens, and the wrap and ribbon" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="anabg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdf7f0"/><stop offset="1" stop-color="#f6edf1"/></linearGradient>
+          <linearGradient id="wrapg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d8b483"/><stop offset="1" stop-color="#b6864f"/></linearGradient>
+        </defs>
+        <rect width="560" height="520" rx="24" fill="url(#anabg)"/>
+        <path d="M240 300 C232 250 208 202 176 168 M240 300 C248 248 300 210 336 170 M240 300 C240 240 244 190 246 150" fill="none" stroke="#7ea065" stroke-width="4" stroke-linecap="round"/>
+        <g fill="#a9bb97">
+          <ellipse cx="176" cy="166" rx="16" ry="7" transform="rotate(-40 176 166)"/>
+          <ellipse cx="198" cy="192" rx="15" ry="7" transform="rotate(-32 198 192)"/>
+          <ellipse cx="216" cy="220" rx="14" ry="6.5" transform="rotate(-24 216 220)"/>
+          <ellipse cx="336" cy="168" rx="16" ry="7" transform="rotate(40 336 168)"/>
+          <ellipse cx="314" cy="194" rx="15" ry="7" transform="rotate(32 314 194)"/>
+          <ellipse cx="294" cy="220" rx="14" ry="6.5" transform="rotate(24 294 220)"/>
+        </g>
+        <g fill="#8ba875"><ellipse cx="246" cy="150" rx="8" ry="16"/><ellipse cx="232" cy="176" rx="7" ry="13"/></g>
+        <path d="M182 258 L298 258 L272 452 Q240 470 208 452 Z" fill="url(#wrapg)" stroke="#a2743f" stroke-width="2"/>
+        <path d="M240 258 L240 460" stroke="#a2743f" stroke-width="1.4" opacity=".4"/>
+        <path d="M214 258 L226 456" stroke="#a2743f" stroke-width="1.2" opacity=".28"/>
+        <path d="M266 258 L254 456" stroke="#a2743f" stroke-width="1.2" opacity=".28"/>
+        <g fill="#f0c7d3">
+          <circle cx="168" cy="170" r="4"/><circle cx="176" cy="162" r="3"/><circle cx="160" cy="178" r="3"/><circle cx="184" cy="176" r="2.6"/>
+          <circle cx="322" cy="176" r="4"/><circle cx="330" cy="168" r="3"/><circle cx="314" cy="184" r="3"/><circle cx="336" cy="182" r="2.6"/>
+          <circle cx="238" cy="132" r="4"/><circle cx="248" cy="126" r="3"/><circle cx="228" cy="128" r="2.6"/>
+          <circle cx="300" cy="232" r="4"/><circle cx="310" cy="226" r="3"/><circle cx="294" cy="240" r="2.6"/>
+          <circle cx="182" cy="236" r="4"/><circle cx="172" cy="228" r="3"/><circle cx="190" cy="244" r="2.6"/>
+        </g>
+        <g>
+          <g><circle cx="206" cy="182" r="33" fill="#c9556f"/><circle cx="206" cy="182" r="20" fill="#b83f61"/><circle cx="206" cy="182" r="9" fill="#a92a58"/><circle cx="199" cy="175" r="4" fill="#dd8296" opacity=".85"/></g>
+          <g><circle cx="274" cy="178" r="34" fill="#c9556f"/><circle cx="274" cy="178" r="21" fill="#b83f61"/><circle cx="274" cy="178" r="9" fill="#a92a58"/><circle cx="267" cy="171" r="4" fill="#dd8296" opacity=".85"/></g>
+          <g><circle cx="240" cy="150" r="28" fill="#d06277"/><circle cx="240" cy="150" r="17" fill="#b83f61"/><circle cx="240" cy="150" r="7" fill="#a92a58"/></g>
+          <g><circle cx="240" cy="216" r="30" fill="#c9556f"/><circle cx="240" cy="216" r="18" fill="#b83f61"/><circle cx="240" cy="216" r="8" fill="#a92a58"/></g>
+          <g><circle cx="300" cy="206" r="22" fill="#d06277"/><circle cx="300" cy="206" r="13" fill="#b83f61"/><circle cx="300" cy="206" r="6" fill="#a92a58"/></g>
+          <g><circle cx="180" cy="210" r="22" fill="#d06277"/><circle cx="180" cy="210" r="13" fill="#b83f61"/><circle cx="180" cy="210" r="6" fill="#a92a58"/></g>
+        </g>
+        <rect x="196" y="286" width="88" height="22" rx="5" fill="#c9556f"/>
+        <path d="M236 306 L224 342 L238 335 Z" fill="#b83f61"/><path d="M244 306 L256 342 L242 335 Z" fill="#b83f61"/>
+        <ellipse cx="226" cy="297" rx="17" ry="12" fill="#b83f61"/><ellipse cx="254" cy="297" rx="17" ry="12" fill="#b83f61"/><circle cx="240" cy="297" r="9" fill="#d6667f"/>
+        <g fill="none" stroke="#33312a" stroke-opacity=".3" stroke-width="1.5" stroke-dasharray="3 4">
+          <path d="M300 176 C330 150 344 132 360 126"/><path d="M322 200 C340 204 350 208 360 210"/><path d="M300 216 C334 250 350 278 360 300"/><path d="M278 360 C316 372 344 382 360 388"/>
+        </g>
+        <g fill="#33312a" fill-opacity=".45"><circle cx="300" cy="176" r="3.4"/><circle cx="322" cy="200" r="3.4"/><circle cx="300" cy="216" r="3.4"/><circle cx="278" cy="360" r="3.4"/></g>
+        <g font-family="Georgia,'Times New Roman',serif">
+          <circle cx="372" cy="126" r="12.5" fill="#c9556f"/><text x="372" y="131" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="700" fill="#fff">1</text>
+          <text x="392" y="122" font-size="17.5" font-weight="700" fill="#33312a">Focal flowers</text>
+          <text x="392" y="143" font-family="Inter,Arial,sans-serif" font-size="12.5" fill="#8b7f89">roses &amp; lilies — the stars</text>
+          <circle cx="372" cy="210" r="12.5" fill="#eeb7c5"/><text x="372" y="215" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="700" fill="#8a3450">2</text>
+          <text x="392" y="206" font-size="17.5" font-weight="700" fill="#33312a">Filler flowers</text>
+          <text x="392" y="227" font-family="Inter,Arial,sans-serif" font-size="12.5" fill="#8b7f89">baby's breath — soft clouds</text>
+          <circle cx="372" cy="300" r="12.5" fill="#a9bb97"/><text x="372" y="305" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="700" fill="#fff">3</text>
+          <text x="392" y="296" font-size="17.5" font-weight="700" fill="#33312a">Greens</text>
+          <text x="392" y="317" font-family="Inter,Arial,sans-serif" font-size="12.5" fill="#8b7f89">eucalyptus — the calm frame</text>
+          <circle cx="372" cy="388" r="12.5" fill="#c89b62"/><text x="372" y="393" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="700" fill="#fff">4</text>
+          <text x="392" y="384" font-size="17.5" font-weight="700" fill="#33312a">Wrap &amp; ribbon</text>
+          <text x="392" y="405" font-family="Inter,Arial,sans-serif" font-size="12.5" fill="#8b7f89">kraft paper, tied by hand</text>
+        </g>
+      </svg>
+    </div>
     <div class="rv">
       <span class="kicker" data-i18n="ana_kicker">Florist school, 60 seconds</span>
       <h2 style="font-size:clamp(28px,3.8vw,42px);margin-top:12px" data-i18n="ana_h">The anatomy of a<br>perfect bouquet.</h2>
@@ -232,6 +297,23 @@
   <a class="btn btn-wa" data-wa="Hi Flowers Pavon! I'd like to order a bouquet." data-wa-es="¡Hola Flowers Pavon! Quisiera pedir un ramo." href="#" data-i18n="mbar_order">Order on WhatsApp</a>
 </div>
 
+<script>
+(function(){
+  document.querySelectorAll('#catalog .bq').forEach(function(card){
+    var img=card.querySelector('.ph img');
+    var src=img?img.getAttribute('src'):'';
+    var m=src.match(/b(\d+)\.jpg/);
+    if(!m)return;
+    var href='bouquet.html?id=b'+m[1];
+    var ph=card.querySelector('.ph');
+    if(ph&&ph.parentNode){var a=document.createElement('a');a.className='ph-link';a.href=href;a.setAttribute('aria-label','View bouquet details');ph.parentNode.insertBefore(a,ph);a.appendChild(ph);}
+    var h3=card.querySelector('h3');
+    if(h3){h3.innerHTML='<a class="ttl-link" href="'+href+'">'+h3.innerHTML+'</a>';}
+    var body=card.querySelector('.body');
+    if(body){var d=document.createElement('a');d.className='detail-link';d.href=href;d.textContent='View full details →';body.appendChild(d);}
+  });
+})();
+</script>
 <script src="pixel.js"></script>
 <script src="story.js" defer></script>
 <script src="i18n.js" defer></script>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bouquet — Flowers Pavon</title>
+<meta name="description" content="Bouquet details from Flowers Pavon — what's inside, sizes and pricing. Order on WhatsApp or make your own in the Bouquet Studio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<style>
+.bq-page{padding-top:26px;padding-bottom:64px}
+.bq-back{display:inline-block;margin-bottom:20px;font-family:var(--px);font-size:11px;letter-spacing:.06em;color:var(--terra);text-decoration:none}
+.bq-back:hover{text-decoration:underline}
+.bq-detail{display:grid;grid-template-columns:1fr 1.05fr;gap:46px;align-items:start}
+.bq-media{position:sticky;top:96px;background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,253,246,.56));border:1px solid rgba(255,255,255,.9);border-radius:26px;box-shadow:0 22px 52px -28px rgba(48,43,32,.5);padding:14px}
+.bq-media .ph{position:relative;aspect-ratio:1/1.04;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#f7eddc,#fdf8ec);display:grid;place-items:center}
+.bq-media .ph img,.bq-media .ph canvas{width:100%;height:100%;object-fit:cover}
+.bq-media .ph canvas{image-rendering:pixelated;object-fit:contain;width:86%;height:86%}
+.bq-media .badge{position:absolute;top:20px;left:20px;z-index:2;border-radius:999px;padding:7px 13px;font-family:var(--px);font-size:9px;background:var(--blush);border:0;box-shadow:0 6px 14px rgba(51,49,42,.2);letter-spacing:.08em}
+.bq-info .occ-tag{font-family:var(--px);font-size:9px;color:var(--terra);letter-spacing:.1em;text-transform:uppercase}
+.bq-info h1{font-size:clamp(30px,4.4vw,46px);line-height:1.03;margin:10px 0 8px}
+.bq-price{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--ink)}
+.bq-blurb{font-size:16px;color:var(--muted);line-height:1.6;margin:12px 0 2px}
+.bq-sizes{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 4px}
+.bq-size{padding:9px 15px;border:1.5px solid var(--line);border-radius:999px;background:#fff;font-weight:600;font-size:13px;color:var(--ink);cursor:pointer;transition:.15s}
+.bq-size:hover{border-color:#c9556f}
+.bq-size.on{background:#c9556f;color:#fff;border-color:#c9556f}
+.bq-inside{margin:22px 0 4px}
+.bq-inside h3{font-size:12px;font-family:var(--px);letter-spacing:.05em;color:var(--green);margin-bottom:12px;text-transform:uppercase}
+.bq-inside ul{list-style:none;display:grid;gap:12px;padding:0;margin:0}
+.bq-inside li{display:flex;gap:13px;align-items:flex-start}
+.bq-inside li .dot{width:13px;height:13px;border-radius:50%;flex-shrink:0;margin-top:5px;box-shadow:inset 0 0 0 3px rgba(255,255,255,.55)}
+.bq-inside li b{display:block;font-size:15px}
+.bq-inside li small{color:var(--muted);font-size:13px;line-height:1.5}
+.bq-cta{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0 4px}
+.bq-cta .btn{flex:1;min-width:190px;justify-content:center;min-height:54px;font-size:15px;border-radius:14px}
+.bq-story{font-size:14.5px;color:var(--muted);line-height:1.72;margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}
+.bq-trust{margin-top:16px;font-size:12px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.bq-also{margin-top:66px}
+.bq-also h2{font-size:26px;margin-bottom:20px}
+.alsogrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.alsogrid .ph-link{display:block;text-decoration:none}
+.alsogrid .ttl-link{color:inherit;text-decoration:none}
+.alsogrid .ttl-link:hover{color:#c9556f}
+@media(max-width:900px){.bq-detail{grid-template-columns:1fr;gap:26px}.bq-media{position:static;max-width:440px}.alsogrid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.bq-cta .btn{min-width:100%}.alsogrid{grid-template-columns:repeat(2,1fr);gap:12px}.bq-also{margin-top:48px}}
+</style>
+</head>
+<body>
+
+<div id="annc">🚚 <span data-i18n="annc">ORDER BY <b>1PM</b> FOR SAME-DAY DELIVERY · NORTHERN VIRGINIA</span></div>
+
+<nav id="nav"><div class="wrap bar">
+  <a class="logo" href="index.html"><canvas data-px="rose" width="12" height="12"></canvas><span><span class="t">Flowers <em>Pavon</em></span><small data-i18n="tagline">HANDCRAFTED FLORAL ARTISTRY</small></span></a>
+  <div class="links">
+    <a href="index.html#catalog" data-i18n="nav_bouquets">Bouquets</a>
+    <a href="index.html#anatomy" data-i18n="nav_anatomy">Anatomy</a>
+    <a href="builder.html" data-i18n="nav_studio">The Studio</a>
+    <a href="index.html#care" data-i18n="nav_care">Flower Care</a>
+    <a href="index.html#faq" data-i18n="nav_faq">FAQ</a>
+  </div>
+  <div class="nav-right">
+    <div class="langtog" role="group" aria-label="Language"><button data-lang-btn="en" class="on">EN</button><button data-lang-btn="es">ES</button></div>
+    <a class="btn btn-rose" href="index.html#catalog" data-i18n="nav_shop">💐 Shop bouquets</a>
+  </div>
+</div></nav>
+
+<main class="wrap bq-page">
+  <a class="bq-back" href="index.html#catalog">← ALL BOUQUETS</a>
+  <div class="bq-detail rv">
+    <div class="bq-media">
+      <span class="badge b-rose" id="bqBadge"></span>
+      <div class="ph"><img id="heroImg" data-pxseed="1" src="" alt=""></div>
+    </div>
+    <div class="bq-info">
+      <span class="occ-tag" id="catTag"></span>
+      <h1 id="bqName"></h1>
+      <div class="bq-price"><span id="bqPrice"></span></div>
+      <p class="bq-blurb" id="bqBlurb"></p>
+      <div class="bq-sizes" id="sizeChips"></div>
+      <div class="bq-inside"><h3>What's inside</h3><ul id="insideList"></ul></div>
+      <div class="bq-cta">
+        <a class="btn btn-wa" id="orderBtn" href="#">Order on WhatsApp</a>
+        <a class="btn btn-ghost" id="makeBtn" href="builder.html">🌸 Make my own</a>
+      </div>
+      <p class="bq-story" id="bqStory"></p>
+      <div class="bq-trust"><span>🚚 Same-day by 1PM</span><span>🌱 Tied fresh</span><span>🏷️ Every price on the card</span></div>
+    </div>
+  </div>
+
+  <section class="bq-also">
+    <h2>You may also like</h2>
+    <div class="cat-grid alsogrid" id="alsoGrid"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div><div class="foot-logo">Flowers <em>Pavon</em></div><p>Northern Virginia's handcrafted florist. Ramos buchón, arrangements &amp; preserved roses, delivered today.</p></div>
+    <div><h4>SHOP</h4><a href="index.html#catalog">Bouquet menu</a><a href="builder.html">Bouquet Studio</a><a href="index.html#faq">Delivery &amp; FAQ</a></div>
+    <div><h4>SERVICES</h4><a href="index.html#care">Flower care</a><a href="index.html#anatomy">Anatomy of a bouquet</a></div>
+    <div><h4>VISIT</h4><a href="#">Northern Virginia</a><a href="#">Mon–Sat · 9am–6pm</a><a href="https://instagram.com/flowerspavon" target="_blank" rel="noopener">@flowerspavon</a></div>
+  </div>
+</footer>
+
+<script src="bouquets.js"></script>
+<script>
+(function(){
+  var B=window.BOUQUETS||{};
+  var id=(new URLSearchParams(location.search)).get("id");
+  var b=B[id]||B.b1||B[Object.keys(B)[0]];
+  if(!b)return;
+  var WA="17039534542";
+  function lang(){try{return localStorage.getItem("pavonLang")||"en";}catch(e){return "en";}}
+  function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;");}
+  function $(x){return document.getElementById(x);}
+  document.title=b.name+" · Flowers Pavon";
+  var badge=$("bqBadge"); if(b.badge){badge.textContent=b.badge;}else{badge.style.display="none";}
+  var img=$("heroImg"); img.src=b.img; img.setAttribute("data-pxseed",b.seed); img.alt=b.name;
+  $("catTag").textContent="✦ "+b.cat;
+  $("bqName").textContent=b.name;
+  $("bqBlurb").textContent=b.blurb;
+  $("bqStory").textContent=b.story||"";
+  var ul=$("insideList");
+  b.inside.forEach(function(it,i){
+    var col=(b.palette&&b.palette[i%b.palette.length])||"#c9556f";
+    var li=document.createElement("li");
+    li.innerHTML='<span class="dot" style="background:'+col+'"></span><div><b>'+esc(it[0])+'</b><small>'+esc(it[1])+'</small></div>';
+    ul.appendChild(li);
+  });
+  var order=$("orderBtn"), make=$("makeBtn");
+  make.href="builder.html"+(b.tpl?("?tpl="+b.tpl):"");
+  var curName=b.sizes[0][0], curPrice=b.sizes[0][1];
+  function msgEN(){return "Hi Flowers Pavon! I'd like to order "+b.name+" \u2014 "+curName+" ($"+curPrice+").";}
+  function msgES(){return "\u00a1Hola Flowers Pavon! Quisiera pedir "+b.name+" \u2014 "+curName+" ($"+curPrice+").";}
+  function syncOrder(){
+    order.setAttribute("data-wa",msgEN());
+    order.setAttribute("data-wa-es",msgES());
+    order.href="https://wa.me/"+WA+"?text="+encodeURIComponent(lang()==="es"?msgES():msgEN());
+    order.target="_blank"; order.rel="noopener";
+    $("bqPrice").textContent="$"+curPrice;
+  }
+  var sc=$("sizeChips");
+  b.sizes.forEach(function(s,i){
+    var btn=document.createElement("button");
+    btn.className="bq-size"+(i===0?" on":"");
+    btn.textContent=s[0]+" · $"+s[1];
+    btn.addEventListener("click",function(){
+      sc.querySelectorAll(".bq-size").forEach(function(x){x.classList.remove("on");});
+      btn.classList.add("on"); curName=s[0]; curPrice=s[1]; syncOrder();
+    });
+    sc.appendChild(btn);
+  });
+  if(b.sizes.length<2){sc.style.display="none";}
+  syncOrder();
+  var also=$("alsoGrid");
+  Object.keys(B).filter(function(k){return k!==b.id;}).slice(0,3).forEach(function(k){
+    var o=B[k];
+    var card=document.createElement("div");
+    card.className="bq rv"; card.setAttribute("data-occ",o.occ||"");
+    card.innerHTML=(o.badge?'<span class="badge b-rose">'+esc(o.badge)+'</span>':'')
+      +'<a class="ph-link" href="bouquet.html?id='+o.id+'"><div class="ph"><img data-pxseed="'+o.seed+'" src="'+o.img+'" alt="'+esc(o.name)+'"></div></a>'
+      +'<div class="body"><span class="occ-tag">✦ '+esc(o.cat)+'</span>'
+      +'<h3><a class="ttl-link" href="bouquet.html?id='+o.id+'">'+esc(o.name)+'</a></h3>'
+      +'<div class="row"><span class="price">$'+o.sizes[0][1]+'</span></div>'
+      +'<div class="acts"><a class="btn btn-wa" data-wa="'+esc(o.wa)+'" data-wa-es="'+esc(o.waes)+'" href="#">Order</a>'
+      +'<a class="btn btn-ghost" href="bouquet.html?id='+o.id+'">Details</a></div></div>';
+    also.appendChild(card);
+  });
+})();
+</script>
+<script src="pixel.js"></script>
+<script src="i18n.js" defer></script>
+</body>
+</html>
