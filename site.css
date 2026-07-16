@@ -411,3 +411,61 @@ footer{padding-top:44px}
   .hero-photos .hp3{top:6.5%;right:-12px;bottom:auto;transform:rotate(6deg);animation-delay:.3s}
   @media(prefers-reduced-motion:reduce){.hero-photos .hp1,.hero-photos .hp3{animation:none}}
 }
+
+
+/* ===== v15 — solid editorial hero: automatic, CSS-only, GPU-light ===== */
+/* the old canvas lens is gone — every effect below is transform/opacity only */
+#hero{min-height:74vh}
+#hero .hero-inner{padding:64px 0 205px}
+#hero .hero-inner::before{content:'';position:absolute;inset:-40px -60px;z-index:-1;border-radius:50%;background:radial-gradient(58% 58% at 50% 42%,rgba(250,245,234,.92),rgba(250,245,234,0) 74%)}
+
+/* drifting watercolor auras behind the headline */
+.hero-aura{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hero-aura i{position:absolute;width:58vmin;height:58vmin;border-radius:50%;will-change:transform;animation:auraDrift 18s ease-in-out infinite alternate}
+.hero-aura .au1{left:-14%;top:-16%;background:radial-gradient(circle,rgba(238,183,197,.6),rgba(238,183,197,0) 68%)}
+.hero-aura .au2{right:-16%;top:4%;background:radial-gradient(circle,rgba(201,162,75,.34),rgba(201,162,75,0) 68%);animation-duration:23s;animation-delay:-7s}
+.hero-aura .au3{left:24%;bottom:-34%;background:radial-gradient(circle,rgba(169,187,151,.42),rgba(169,187,151,0) 68%);animation-duration:27s;animation-delay:-13s}
+@keyframes auraDrift{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(7vmin,4vmin,0) scale(1.22)}}
+
+/* petals drifting down — 12 tiny nodes, one looping transform each */
+.hero-petals{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hero-petals i{position:absolute;top:-26px;width:13px;height:13px;border-radius:14px 3px 14px 3px;background:linear-gradient(135deg,#f5cdd8,#e2919f);opacity:.9;will-change:transform;animation:petalFall 12s linear infinite}
+.hero-petals i:nth-child(3n){background:linear-gradient(135deg,#dfe9d2,#a9bb97);width:11px;height:11px}
+.hero-petals i:nth-child(4n){background:linear-gradient(135deg,#f0e2be,#d9bd7f);border-radius:3px 14px 3px 14px}
+.hero-petals i:nth-child(1){left:4%;animation-delay:0s}
+.hero-petals i:nth-child(2){left:12%;animation-delay:-7.4s;animation-duration:14s}
+.hero-petals i:nth-child(3){left:21%;animation-delay:-3.1s;animation-duration:10.5s}
+.hero-petals i:nth-child(4){left:30%;animation-delay:-10.2s;animation-duration:15.5s}
+.hero-petals i:nth-child(5){left:38%;animation-delay:-5.6s;animation-duration:12.5s}
+.hero-petals i:nth-child(6){left:47%;animation-delay:-1.8s;animation-duration:16s}
+.hero-petals i:nth-child(7){left:55%;animation-delay:-8.9s;animation-duration:11s}
+.hero-petals i:nth-child(8){left:63%;animation-delay:-4.4s;animation-duration:13.5s}
+.hero-petals i:nth-child(9){left:72%;animation-delay:-11.7s;animation-duration:10s}
+.hero-petals i:nth-child(10){left:80%;animation-delay:-2.5s;animation-duration:14.5s}
+.hero-petals i:nth-child(11){left:88%;animation-delay:-6.8s;animation-duration:11.5s}
+.hero-petals i:nth-child(12){left:95%;animation-delay:-9.6s;animation-duration:15s}
+@keyframes petalFall{0%{transform:translate3d(0,-4vh,0) rotate(0deg)}25%{transform:translate3d(3.5vw,26vh,0) rotate(95deg)}50%{transform:translate3d(-2.5vw,52vh,0) rotate(200deg)}75%{transform:translate3d(3vw,78vh,0) rotate(305deg)}100%{transform:translate3d(-1vw,106vh,0) rotate(400deg)}}
+
+/* the studio film strip — an endless slow parade of real bouquets */
+.hero-film{position:absolute;left:0;right:0;bottom:16px;overflow:hidden;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.hero-film .strip{display:flex;gap:20px;width:max-content;padding:12px 0 8px;will-change:transform;animation:filmSlide 52s linear infinite}
+.hero-film .pola{flex:none;margin:0;background:#fffdf6;border:1px solid rgba(51,49,42,.16);border-radius:7px;padding:7px 7px 5px;box-shadow:0 16px 30px -20px rgba(48,43,32,.55);transform:rotate(-2deg)}
+.hero-film .pola:nth-child(even){transform:rotate(2deg)}
+.hero-film .pola img{display:block;width:116px;height:124px;object-fit:cover;border-radius:4px}
+.hero-film .pola figcaption{font-family:var(--px);font-size:7.5px;letter-spacing:.07em;color:#6b675c;text-align:center;padding-top:6px;white-space:nowrap}
+@keyframes filmSlide{to{transform:translate3d(-50%,0,0)}}
+
+/* phones: same show, tightened */
+@media(max-width:640px){
+  #hero{min-height:88svh}
+  #hero .hero-inner{padding:46px 0 190px}
+  .hero-film{bottom:10px}
+  .hero-film .pola img{width:96px;height:104px}
+  .hero-petals i:nth-child(11),.hero-petals i:nth-child(12){display:none}
+}
+
+/* accessibility + stills */
+@media(prefers-reduced-motion:reduce){
+  .hero-aura i,.hero-petals i,.hero-film .strip{animation:none}
+  .hero-petals{display:none}
+}
