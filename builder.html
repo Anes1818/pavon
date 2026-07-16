@@ -28,30 +28,7 @@
       <div id="flowerLayer"></div>
       <div class="hint" id="hint">Pick a preset or tap + to add flowers — then drag each bloom into place</div>
       <div id="wrapFront"></div>
-      <svg id="ribbon" viewBox="0 0 220 140" aria-hidden="true">
-        <defs>
-          <linearGradient id="rbSheen" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#fff" stop-opacity=".5"/>
-            <stop offset=".42" stop-color="#fff" stop-opacity=".06"/>
-            <stop offset="1" stop-color="#000" stop-opacity=".22"/>
-          </linearGradient>
-        </defs>
-        <path class="rb-tail" d="M104 64 C 93 88, 85 106, 73 130 L 90 122 L 99 135 C 104 111, 107 88, 109 68 Z"/>
-        <path class="rb-tail" d="M116 64 C 127 88, 135 106, 147 130 L 130 122 L 121 135 C 116 111, 113 88, 111 68 Z"/>
-        <path class="rb-sh" d="M104 64 C 98 84, 93 100, 87 118 C 96 100, 103 83, 109 68 Z"/>
-        <path class="rb-sh" d="M116 64 C 122 84, 127 100, 133 118 C 124 100, 117 83, 111 68 Z"/>
-        <path class="rb-loop" d="M108 58 C 76 26, 32 25, 23 49 C 16 70, 52 83, 108 63 Z"/>
-        <path class="rb-loop" d="M112 58 C 144 26, 188 25, 197 49 C 204 70, 168 83, 112 63 Z"/>
-        <path class="rb-sh" d="M108 58 C 82 40, 48 35, 34 47 C 49 41, 81 46, 108 62 Z"/>
-        <path class="rb-sh" d="M112 58 C 138 40, 172 35, 186 47 C 171 41, 139 46, 112 62 Z"/>
-        <rect class="rb-knot" x="96" y="47" width="28" height="23" rx="9"/>
-        <path class="rb-sh" d="M97 62 C 104 69, 116 69, 123 62 C 118 72, 102 72, 97 62 Z"/>
-        <path fill="url(#rbSheen)" d="M108 58 C 76 26, 32 25, 23 49 C 16 70, 52 83, 108 63 Z"/>
-        <path fill="url(#rbSheen)" d="M112 58 C 144 26, 188 25, 197 49 C 204 70, 168 83, 112 63 Z"/>
-        <path fill="url(#rbSheen)" d="M104 64 C 93 88, 85 106, 73 130 L 90 122 L 99 135 C 104 111, 107 88, 109 68 Z"/>
-        <path fill="url(#rbSheen)" d="M116 64 C 127 88, 135 106, 147 130 L 130 122 L 121 135 C 116 111, 113 88, 111 68 Z"/>
-        <rect fill="url(#rbSheen)" x="96" y="47" width="28" height="23" rx="9"/>
-      </svg>
+      <img id="ribbon" src="" alt="" aria-hidden="true">
       <div id="noteCard"><span>💌</span><p id="noteCardTxt"></p></div>
       <button id="snapBtn" title="Save my bouquet as an image" onclick="saveImg()">📸</button>
     </div>
@@ -219,12 +196,10 @@ const WRAP_SIL={
   journal:[[.36,.086,.918],[.42,.108,.888],[.48,.149,.847],[.54,.19,.817],[.6,.236,.782],[.66,.296,.708],[.72,.389,.601],[.78,.365,.636],[.84,.36,.644],[.9,.375,.629],[.96,.375,.629]]
 };
 const RIBBONS=[
-  {id:'none',   label:'None',     c:null,      d:null},
-  {id:'blush',  label:'Blush',    c:'#e58bb0', d:'#c9679a'},
-  {id:'burgundy',label:'Burgundy',c:'#8e2f48', d:'#6e2138'},
-  {id:'sage',   label:'Sage',     c:'#93a884', d:'#758a67'},
-  {id:'gold',   label:'Gold',     c:'#d9a13f', d:'#b98428'},
-  {id:'ivory',  label:'Ivory',    c:'#f1ead9', d:'#cfc3a6'},
+  {id:'none',    label:'None',     file:null,                  c:null,      d:null},
+  {id:'blush',   label:'Blush',    file:'ribbon_blush.png',    c:'#e58bb0', d:'#c9679a'},
+  {id:'burgundy',label:'Burgundy', file:'ribbon_burgundy.png', c:'#8e2f48', d:'#6e2138'},
+  {id:'sage',    label:'Sage',     file:'ribbon_sage.png',     c:'#93a884', d:'#758a67'},
 ];
 
 const STEP_META=[
@@ -375,7 +350,7 @@ function render(){
     rb.style.display='block';
     rb.style.top=(tE+hE*ws.tie)+'%';
     rb.style.width=(34*Math.max(.8,hE/ws.h))+'%';
-    rb.style.setProperty('--rb',rib.c); rb.style.setProperty('--rb-dark',rib.d);
+    rb.src=assetUrl(rib.file);rb.alt=rib.label+' ribbon bow';
   } else rb.style.display='none';
   // gift note card on stage
   const nc=document.getElementById('noteCard');
@@ -608,12 +583,32 @@ function checkAsset(c,rowEl){
   img.src=assetUrl(c.file);
 }
 
+function openFlowerGroup(group,button){
+  const oldTop=button.getBoundingClientRect().top;
+  document.querySelectorAll('#rows .flowergroup').forEach(box=>{box.hidden=box.dataset.group!==group;});
+  document.querySelectorAll('#rows .grouphead').forEach(btn=>{
+    const on=btn.dataset.group===group;
+    btn.classList.toggle('on',on);btn.setAttribute('aria-expanded',on?'true':'false');
+  });
+  requestAnimationFrame(()=>{
+    if(window.innerWidth<=760){
+      const shift=button.getBoundingClientRect().top-oldTop;
+      if(Math.abs(shift)>1)window.scrollBy(0,shift);
+    }
+  });
+}
+
 function init(){
   const rows=document.getElementById('rows');
-  GROUP_ORDER.forEach(group=>{
+  GROUP_ORDER.forEach((group,groupIndex)=>{
     const items=CATALOG.filter(c=>c.group===group);
     if(!items.length)return;
-    const h=document.createElement('div');h.className='grouphead';h.textContent=group;rows.appendChild(h);
+    const h=document.createElement('button');
+    h.type='button';h.className='grouphead'+(groupIndex===0?' on':'');h.dataset.group=group;
+    h.setAttribute('aria-expanded',groupIndex===0?'true':'false');
+    h.innerHTML='<span>'+group+'</span><small>'+items.length+' available</small><i aria-hidden="true">⌄</i>';
+    h.onclick=function(){openFlowerGroup(group,h);};rows.appendChild(h);
+    const box=document.createElement('div');box.className='flowergroup';box.dataset.group=group;box.hidden=groupIndex!==0;rows.appendChild(box);
     items.forEach(c=>{
       const r=document.createElement('div');r.className='row';
       r.innerHTML='<div class="thumb" style="background-image:url('+assetUrl(c.file)+')"></div>'+
@@ -621,7 +616,7 @@ function init(){
         '<div class="step"><button aria-label="Remove one" onclick="chg(\''+c.id+'\',-1)">−</button>'+
         '<span class="ct" data-ct="'+c.id+'">0</span>'+
         '<button aria-label="Add one" onclick="chg(\''+c.id+'\',1)">+</button></div>';
-      rows.appendChild(r);
+      box.appendChild(r);
       checkAsset(c,r);
     });
   });
@@ -636,7 +631,7 @@ function init(){
   const rbr=document.getElementById('ribbons');
   RIBBONS.forEach(rb=>{
     const b=document.createElement('button');b.dataset.r=rb.id;b.title=rb.label;
-    if(rb.c){b.style.setProperty('--dot',rb.c);}else{b.classList.add('nodot');}
+    if(rb.file){b.classList.add('realbow');b.style.setProperty('--bow','url('+assetUrl(rb.file)+')');}else{b.classList.add('nodot');}
     b.onclick=function(){setRibbon(rb.id);};
     const s=document.createElement('span');s.textContent=rb.label;b.appendChild(s);
     rbr.appendChild(b);
@@ -746,8 +741,30 @@ total=function(){
   return buPrice()+(state.noteOn?NOTE_PRICE:0);
 };
 
+function resetFinishEffects(){
+  state.wrapStyle='kraft';
+  state.ribbon='none';
+  state.noteOn=false;state.note='';
+  state.bu.wall2=false;state.bu.greens=false;state.bu.jewel=false;state.bu.choc=false;state.bu.sash='';
+  const ws=WRAP_STYLES[0];
+  document.getElementById('wrapBack').style.backgroundImage='url('+assetUrl(ws.back)+')';
+  document.getElementById('wrapFront').style.backgroundImage='url('+assetUrl(ws.front)+')';
+  document.querySelectorAll('#wrapstyles button').forEach(b=>b.classList.toggle('on',b.dataset.w==='kraft'));
+  document.querySelectorAll('#ribbons button').forEach(b=>b.classList.toggle('on',b.dataset.r==='none'));
+  document.querySelectorAll('#buX button,#buSash button').forEach(b=>b.classList.remove('on'));
+  const card=document.getElementById('cardMsg');if(card)card.value='';
+  const ct=document.getElementById('charCt');if(ct)ct.textContent='0';
+  const nw=document.getElementById('noteWrap');if(nw)nw.style.display='none';
+  const off=document.getElementById('noteOff');if(off)off.classList.add('on');
+  const on=document.getElementById('noteOnBtn');if(on)on.classList.remove('on');
+  document.getElementById('ribbon').style.display='none';
+  document.getElementById('noteCard').style.display='none';
+}
+
 const _setStep=setStep;
 setStep=function(n){
+  n=Math.max(1,Math.min(4,n));
+  if(n===1)resetFinishEffects();
   if(state.template==='classic'){
     const result=_setStep(n);
     if(window.innerWidth<=760)requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'smooth'}));
@@ -871,7 +888,7 @@ function renderBu(){
     rb.style.display='block';
     rb.style.top=(wT+wH*ws.tie)+'%';
     rb.style.width=Math.max(19,wW*.56)+'%';
-    rb.style.setProperty('--rb',rib.c);rb.style.setProperty('--rb-dark',rib.d);
+    rb.src=assetUrl(rib.file);rb.alt=rib.label+' ribbon bow';
   } else rb.style.display='none';
   const nc=document.getElementById('noteCard');
   if(step===4&&state.noteOn&&state.note.trim()){
@@ -966,6 +983,7 @@ function refreshSizeLabels(){
 const WRAP_TIP_CLASSIC='🧻 The paper gathers your stems and trims the long ones neatly — your blooms stay untouched. Want to rearrange? Press Back.';
 const WRAP_TIP_BU='🧻 Giant ramos are hand-wrapped at pickup — at the last step you will see your ramo, the paper and the bow side by side.';
 window.setTemplate=function(t){
+  if(t==='classic')resetFinishEffects();
   state.template=t;
   const wt=document.getElementById('wrapTip');
   if(wt)wt.textContent=t==='classic'?WRAP_TIP_CLASSIC:WRAP_TIP_BU;

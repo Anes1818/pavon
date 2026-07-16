@@ -469,3 +469,56 @@ footer{padding-top:44px}
   .hero-aura i,.hero-petals i,.hero-film .strip{animation:none}
   .hero-petals{display:none}
 }
+
+
+/* ===== v16 — The Signature Bouquet hero ===== */
+#hero.signature-hero{display:block;min-height:0;overflow:hidden;background:
+  radial-gradient(circle at 17% 24%,rgba(238,183,197,.42),transparent 25%),
+  radial-gradient(circle at 82% 70%,rgba(169,187,151,.35),transparent 27%),
+  linear-gradient(135deg,#fffaf1 0%,#f8eee2 52%,#fff8ed 100%);border-bottom:1px solid var(--line)}
+.sig-shell{min-height:720px;display:grid;grid-template-columns:minmax(480px,1.13fr) minmax(380px,.87fr);align-items:center;gap:clamp(28px,5vw,82px);padding-top:46px;padding-bottom:46px}
+.sig-showcase{position:relative;min-height:620px;display:grid;place-items:center;isolation:isolate}
+.sig-showcase::before{content:'';position:absolute;width:min(500px,78%);height:560px;border:1px solid rgba(201,85,111,.22);border-radius:50% 50% 24px 24px / 20% 20% 24px 24px;background:linear-gradient(155deg,rgba(255,255,255,.78),rgba(255,255,255,.28));box-shadow:inset 0 0 0 12px rgba(255,255,255,.2);transform:rotate(3deg);z-index:-1}
+.sig-main{position:relative;width:min(445px,74%);margin:0;padding:11px;background:#fffdf7;border:1px solid rgba(51,49,42,.14);border-radius:48% 48% 24px 24px / 16% 16% 24px 24px;box-shadow:0 34px 70px -34px rgba(62,43,31,.72);transform:rotate(-1.2deg)}
+.sig-photo{height:490px;overflow:hidden;border-radius:47% 47% 15px 15px / 16% 16% 15px 15px;background:#eadfce}
+.sig-photo img{width:100%;height:100%;object-fit:cover;transform:scale(1.015);will-change:transform;animation:sigBreath 13s ease-in-out infinite alternate}
+@keyframes sigBreath{to{transform:scale(1.055) translate3d(0,-4px,0)}}
+.sig-main figcaption{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 10px 8px;text-align:left}
+.sig-main figcaption span{display:grid;gap:2px}.sig-main figcaption small{font-family:var(--px);font-size:7px;letter-spacing:.12em;color:var(--terra)}
+.sig-main figcaption b{font-family:var(--serif);font-size:22px}.sig-main figcaption strong{font-family:var(--serif);font-size:28px;color:var(--rose)}
+.sig-stamp{position:absolute;right:-28px;top:108px;width:78px;height:78px;display:grid;place-items:center;text-align:center;border-radius:50%;background:var(--green);color:#fff;border:5px solid #fffdf7;box-shadow:0 12px 25px -12px rgba(28,64,36,.7);font-family:var(--px);font-size:7px;line-height:1.6;letter-spacing:.08em;transform:rotate(8deg)}
+.sig-orbit{position:absolute;top:3px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;white-space:nowrap;color:var(--green);font-family:var(--px);font-size:8px;letter-spacing:.14em}
+.sig-orbit i{font-style:normal;color:var(--terra)}
+.sig-mini{position:absolute;margin:0;width:122px;padding:7px 7px 9px;background:#fffdf7;border:1px solid rgba(51,49,42,.15);border-radius:8px;box-shadow:0 20px 36px -22px rgba(48,43,32,.7);z-index:2;animation:sigFloat 7s ease-in-out infinite alternate}
+.sig-mini img{display:block;width:100%;height:124px;object-fit:cover;border-radius:4px}.sig-mini span{display:block;padding-top:7px;text-align:center;font-family:var(--serif);font-style:italic;font-size:13px}
+.sig-mini-a{left:0;bottom:66px;transform:rotate(-8deg)}.sig-mini-b{right:0;top:78px;transform:rotate(7deg);animation-delay:-3.5s}
+@keyframes sigFloat{to{translate:0 -9px}}
+.sig-copy{text-align:left;position:relative;z-index:2}.sig-copy .kicker{display:inline-block;margin-bottom:20px}
+.sig-copy h1{font-size:clamp(54px,5.4vw,78px);line-height:.94;letter-spacing:-.035em;margin:0}.sig-copy h1 em{font-style:italic;color:var(--rose)}
+.sig-copy .sub{font-size:17px;line-height:1.7;color:var(--muted);max-width:48ch;margin:25px 0 24px}
+.sig-actions{display:flex;align-items:center;gap:19px;margin-bottom:30px}.sig-actions .btn{padding:15px 24px;box-shadow:0 12px 24px -16px rgba(140,40,75,.75)}
+.sig-build{font-weight:800;color:var(--green);text-decoration:none;border-bottom:2px solid rgba(53,98,62,.28);padding:8px 1px}.sig-build:hover{color:var(--rose);border-color:var(--rose)}
+.sig-copy .hero-trust{justify-content:flex-start;margin:0;gap:11px 18px;font-size:12px}.sig-copy .hero-trust span{display:flex;align-items:center;gap:5px}
+
+@media(max-width:980px){
+  .sig-shell{grid-template-columns:minmax(390px,1.05fr) minmax(330px,.95fr);gap:22px;min-height:650px}.sig-showcase{min-height:560px}.sig-main{width:min(385px,76%)}.sig-photo{height:420px}.sig-mini{width:98px}.sig-mini img{height:100px}.sig-mini-a{left:1%;bottom:64px}.sig-mini-b{right:1%;top:74px}.sig-copy h1{font-size:52px}
+}
+@media(max-width:760px){
+  #hero.signature-hero{background:radial-gradient(circle at 50% 18%,rgba(238,183,197,.42),transparent 32%),linear-gradient(180deg,#fffaf1,#f7ede1 70%,#fffaf1)}
+  .sig-shell{min-height:0;display:flex;flex-direction:column;gap:10px;padding:24px 16px 42px}
+  .sig-showcase{order:0;width:100%;min-height:510px}
+  .sig-showcase::before{width:88%;height:450px;transform:rotate(2deg)}
+  .sig-main{width:min(350px,88vw);padding:9px;border-radius:48% 48% 20px 20px / 14% 14% 20px 20px}
+  .sig-photo{height:390px;border-radius:47% 47% 13px 13px / 14% 14% 13px 13px}
+  .sig-main figcaption{padding:11px 8px 6px}.sig-main figcaption b{font-size:20px}.sig-main figcaption strong{font-size:25px}
+  .sig-stamp{right:-7px;top:92px;width:67px;height:67px;border-width:4px;font-size:6px}
+  .sig-orbit{top:0;font-size:7px;gap:7px}
+  .sig-mini{width:82px;padding:5px}.sig-mini img{height:82px}.sig-mini span{font-size:10px;padding-top:5px}
+  .sig-mini-a{left:-3px;bottom:37px}.sig-mini-b{right:-3px;top:58px}
+  .sig-copy{order:1;text-align:center;width:100%}.sig-copy .kicker{margin:10px 0 15px;font-size:8px}
+  .sig-copy h1{font-size:clamp(44px,13vw,58px);line-height:.96}.sig-copy .sub{font-size:15px;line-height:1.58;margin:18px auto 20px;max-width:38ch}
+  .sig-actions{justify-content:center;gap:14px;margin-bottom:24px}.sig-actions .btn{padding:14px 19px}.sig-build{font-size:13px}
+  .sig-copy .hero-trust{justify-content:center;gap:9px 15px;font-size:11px}
+}
+@media(max-width:390px){.sig-showcase{min-height:485px}.sig-photo{height:365px}.sig-main{width:330px}.sig-mini-b{display:none}.sig-mini-a{left:-5px}.sig-actions{flex-direction:column;gap:8px}.sig-actions .btn{width:100%}}
+@media(prefers-reduced-motion:reduce){.sig-photo img,.sig-mini{animation:none}}
