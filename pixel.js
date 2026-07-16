@@ -117,11 +117,25 @@ document.querySelectorAll('[data-wa]').forEach(function(a){a.href='https://wa.me
   });
 })();
 
-/* ---- garden grow on scroll ---- */
+/* ---- pixel garden: bloom in view, fold away out of view ---- */
 (function(){
   var g=document.getElementById('garden'); if(!g)return;
-  g.querySelectorAll('canvas').forEach(function(c,i){c.style.transitionDelay=(i*0.12)+'s';});
-  new IntersectionObserver(function(es,io){es.forEach(function(e){if(e.isIntersecting){g.classList.add('grown');io.disconnect();}});},{threshold:.4}).observe(g);
+  var flowers=Array.prototype.slice.call(g.querySelectorAll('canvas'));
+  function stagger(growing){
+    flowers.forEach(function(c,i){
+      var n=growing?i:(flowers.length-1-i);
+      c.style.transitionDelay=(n*0.075)+'s';
+    });
+  }
+  if(!('IntersectionObserver' in window)){
+    stagger(true);g.classList.add('grown');return;
+  }
+  new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      stagger(entry.isIntersecting);
+      g.classList.toggle('grown',entry.isIntersecting);
+    });
+  },{threshold:.32,rootMargin:'0px 0px -5% 0px'}).observe(g);
 })();
 
 /* ---- scroll reveal ---- */
@@ -167,7 +181,14 @@ document.querySelectorAll('.chip[data-go]').forEach(function(ch){ch.addEventList
   var ctx=cv.getContext('2d');
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   /* edges only: greenery tucked behind tilted polaroids; center stays clear for the headline */
-  var ITEMS=[
+  var phone=(hero.clientWidth||window.innerWidth)<=640;
+  /* phones get the same lens + polaroids, scaled to fit the narrow hero */
+  var ITEMS=phone?[
+    {src:'assets/build/eucalyptus.png',t:'stem',x:.30,h:.28},
+    {src:'assets/build/babys_breath.png',t:'stem',x:.70,h:.28},
+    {src:'assets/bouquets/b2.jpg',t:'card',x:.14,h:.32,r:-6,c:'AMOR INFINITO · $550'},
+    {src:'assets/bouquets/b1.jpg',t:'card',x:.86,h:.32,r:6,c:'RAMO #9 · $200'}
+  ]:[
     {src:'assets/build/eucalyptus.png',t:'stem',x:.17,h:.52},
     {src:'assets/build/alstroemeria.png',t:'stem',x:.30,h:.40},
     {src:'assets/build/limonium.png',t:'stem',x:.70,h:.40},
@@ -183,7 +204,7 @@ document.querySelectorAll('.chip[data-go]').forEach(function(ch){ch.addEventList
     s.img.src=s.src;
   });
   var base=document.createElement('canvas'), bctx=base.getContext('2d');
-  var W=0,H=0,BS=68,boxes=[];
+  var W=0,H=0,BS=phone?48:68,boxes=[];
   var m={x:0,y:0,tx:0,ty:0}, t=0, lastMove=0;
   function paint(){
     bctx.clearRect(0,0,W,H);
