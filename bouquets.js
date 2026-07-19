@@ -29,6 +29,7 @@ window.BOUQUETS = {
   b3: {
     id: "b3", name: "Sol y Rosas \ud83c\udf3b", cat: "Ramo Buch\u00f3n",
     occ: "buchon", badge: "", img: "assets/bouquets/b3.jpg", seed: 5, tpl: "round", pearl: true,
+    pay: "https://buy.stripe.com/test_00w4gy2Cv5WKcn6ggD5Rm01",
     blurb: "A golden ring of fresh sunflowers framing a tight dome of red roses \u2014 crowned with your initial in pearls.",
     story: "Two flowers, one showstopper. A dense circle of premium red roses sits at the center of this ramo, wrapped in a full golden ring of fresh sunflowers \u2014 and finished with the detail everyone remembers: an initial of your choice, hand-set in pearls across the roses. Black star-cut wrap, tied fresh the morning it goes out.",
     inside: [["Red rose center", "a tight circle of premium red roses"], ["Sunflower ring", "a full golden frame of fresh sunflowers"], ["Pearl initial + wrap", "your letter hand-set in pearls, black star-cut wrap"]],
@@ -73,6 +74,7 @@ window.BOUQUETS = {
   b7: {
     id: "b7", name: "Coraz\u00f3n de Sol \u2764\ufe0f\ud83c\udf3b", cat: "Ramo Buch\u00f3n",
     occ: "buchon love madre", badge: "NEW", img: "assets/bouquets/b7.jpg", seed: 4, tpl: "round",
+    pay: "https://buy.stripe.com/test_7sY5kCdh9fxkaeY4xV5Rm02",
     blurb: "A hand-sculpted heart of red roses haloed by golden sunflowers, collared in a black star-cut wrap \u2014 finished with a personalized ribbon banner.",
     story: "This is the ramo people stop to photograph. Dozens of red roses are shaped into a tight, velvety heart, then framed with a halo of fresh sunflowers and wisps of baby's breath. The whole piece sits in a dramatic black star-cut collar and carries a satin banner we print with your own words \u2014 a name, a date, a promise.",
     inside: [["Red rose heart", "premium red roses hand-shaped into a dense heart"], ["Sunflower halo", "fresh sunflowers framing the heart, with baby's breath accents"], ["Star-cut wrap + banner", "black premium collar and a personalized satin ribbon"]],
