@@ -30,7 +30,7 @@
     bd_best:'MÁS VENDIDO', bd_lux:'LUJO', bd_gift:'MÁS REGALADO', bd_new:'NUEVO',
     rec1:'<b>Contiene:</b> una cúpula radiante de girasoles frescos, atada estilo buchón con envoltura premium — nuestra firma para el Día de la Madre.',
     rec2:'<b>Contiene:</b> nuestro buchón más grande — una cúpula imponente de rosas rojas premium para las declaraciones de amor más grandes.',
-    rec3:'<b>Contiene:</b> un alegre buchón de girasoles frescos hecho a mano, envuelto y con listón — pura alegría en flor.',
+    rec3:'<b>Contiene:</b> un anillo dorado de girasoles enmarcando una cúpula de rosas rojas — coronado con tu inicial en perlas.',
     rec4:'<b>Contiene:</b> un arreglo primaveral exuberante lleno de color y textura — rosas, tulipanes y flores de temporada.',
     rec5:'<b>Contiene:</b> un encanto rosado suave — rosas rubor y flores delicadas en empaque premium.',
     rec6:'<b>Contiene:</b> rosas rojas preservadas que duran años — un amor que nunca se marchita, en caja de recuerdo.',
