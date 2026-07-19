@@ -23,6 +23,11 @@
 .bq-price{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--ink)}
 .bq-blurb{font-size:16px;color:var(--muted);line-height:1.6;margin:12px 0 2px}
 .bq-sizes{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 4px}
+.bq-lab{margin:16px 0 4px}
+.bq-lab h3{font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 10px;color:#7a5a63}
+.bq-lab .bq-sizes{margin:0}
+.bq-lab .bq-size{min-width:38px;text-align:center}
+.bq-lab small{display:block;margin-top:8px;color:#9a868c;font-size:12.5px}
 .bq-size{padding:9px 15px;border:1.5px solid var(--line);border-radius:999px;background:#fff;font-weight:600;font-size:13px;color:var(--ink);cursor:pointer;transition:.15s}
 .bq-size:hover{border-color:#c9556f}
 .bq-size.on{background:#c9556f;color:#fff;border-color:#c9556f}
@@ -79,6 +84,11 @@
       <div class="bq-price"><span id="bqPrice"></span></div>
       <p class="bq-blurb" id="bqBlurb"></p>
       <div class="bq-sizes" id="sizeChips"></div>
+      <div class="bq-lab" id="pearlLab" style="display:none">
+        <h3>💎 Pearl initial — free</h3>
+        <div class="bq-sizes" id="letterChips"></div>
+        <small>Your letter hand-set in pearls across the roses. Gift-card message is added at checkout.</small>
+      </div>
       <div class="bq-inside"><h3>What's inside</h3><ul id="insideList"></ul></div>
       <div class="bq-cta">
         <a class="btn btn-rose" id="payBtn" href="#" style="display:none">💳 Pay online</a>
@@ -131,18 +141,27 @@
     ul.appendChild(li);
   });
   var order=$("orderBtn"), make=$("makeBtn");
-  var pay=$("payBtn");
-  if(pay&&b.pay){pay.style.display="";pay.href=b.pay;pay.target="_blank";pay.rel="noopener";}
+  var pay=$("payBtn"), curLetter=null;
   make.href="builder.html"+(b.tpl?("?tpl="+b.tpl):"");
   var curName=b.sizes[0][0], curPrice=b.sizes[0][1];
-  function msgEN(){return "Hi Flowers Pavon! I'd like to order "+b.name+" \u2014 "+curName+" ($"+curPrice+").";}
-  function msgES(){return "\u00a1Hola Flowers Pavon! Quisiera pedir "+b.name+" \u2014 "+curName+" ($"+curPrice+").";}
+  function msgEN(){return "Hi Flowers Pavon! I'd like to order "+b.name+" \u2014 "+curName+" ($"+curPrice+")"+(curLetter?(" with pearl initial \""+curLetter+"\""):"")+".";}
+  function msgES(){return "\u00a1Hola Flowers Pavon! Quisiera pedir "+b.name+" \u2014 "+curName+" ($"+curPrice+")"+(curLetter?(" con inicial de perlas \""+curLetter+"\""):"")+".";}
+  function payUrl(){
+    var u=(typeof b.pay==="string")?(curName===b.sizes[0][0]?b.pay:null):((b.pay||{})[curName]||null);
+    if(!u)return null;
+    var ref=(b.id+"-"+curName+(curLetter?("-initial-"+curLetter):"")).replace(/[^A-Za-z0-9_-]/g,"");
+    return u+(u.indexOf("?")>=0?"&":"?")+"client_reference_id="+ref;
+  }
   function syncOrder(){
     order.setAttribute("data-wa",msgEN());
     order.setAttribute("data-wa-es",msgES());
     order.href="https://wa.me/"+WA+"?text="+encodeURIComponent(lang()==="es"?msgES():msgEN());
     order.target="_blank"; order.rel="noopener";
     $("bqPrice").textContent="$"+curPrice;
+    if(pay){var pu=payUrl();
+      if(pu){pay.style.display="";pay.href=pu;pay.target="_blank";pay.rel="noopener";}
+      else{pay.style.display="none";}
+    }
   }
   var sc=$("sizeChips");
   b.sizes.forEach(function(s,i){
@@ -156,6 +175,22 @@
     sc.appendChild(btn);
   });
   if(b.sizes.length<2){sc.style.display="none";}
+  if(b.pearl){
+    var lab=$("pearlLab"), lc=$("letterChips");
+    lab.style.display="";
+    ["None"].concat("ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")).forEach(function(L,i){
+      var btn=document.createElement("button");
+      btn.className="bq-size"+(i===0?" on":"");
+      btn.textContent=L;
+      btn.addEventListener("click",function(){
+        lc.querySelectorAll(".bq-size").forEach(function(x){x.classList.remove("on");});
+        btn.classList.add("on");
+        curLetter=(L==="None")?null:L;
+        syncOrder();
+      });
+      lc.appendChild(btn);
+    });
+  }
   syncOrder();
   var also=$("alsoGrid");
   Object.keys(B).filter(function(k){return k!==b.id;}).slice(0,3).forEach(function(k){

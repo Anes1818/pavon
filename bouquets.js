@@ -27,15 +27,15 @@ window.BOUQUETS = {
     waes: "\u00a1Hola Flowers Pavon! Quisiera pedir el Ramo Buch\u00f3n Amor Infinito Luxury ($350)."
   },
   b3: {
-    id: "b3", name: "Sunflowers Buch\u00f3n", cat: "Ramo Buch\u00f3n",
-    occ: "buchon", badge: "", img: "assets/bouquets/b3.jpg", seed: 5, tpl: "round",
+    id: "b3", name: "Sol y Rosas \ud83c\udf3b", cat: "Ramo Buch\u00f3n",
+    occ: "buchon", badge: "", img: "assets/bouquets/b3.jpg", seed: 5, tpl: "round", pearl: true,
     blurb: "A golden ring of fresh sunflowers framing a tight dome of red roses \u2014 crowned with your initial in pearls.",
-    story: "Two flowers, one showstopper. A dense dome of premium red roses sits at the heart of this ramo, wrapped in a full golden ring of fresh sunflowers \u2014 and finished with the detail everyone remembers: an initial of your choice, hand-set in pearls across the roses. Black star-cut wrap, tied fresh the morning it goes out.",
-    inside: [["Red rose heart", "a tight dome of premium red roses at the center"], ["Sunflower ring", "a full golden frame of fresh sunflowers"], ["Pearl initial + wrap", "your letter hand-set in pearls, black star-cut wrap"]],
+    story: "Two flowers, one showstopper. A dense circle of premium red roses sits at the center of this ramo, wrapped in a full golden ring of fresh sunflowers \u2014 and finished with the detail everyone remembers: an initial of your choice, hand-set in pearls across the roses. Black star-cut wrap, tied fresh the morning it goes out.",
+    inside: [["Red rose center", "a tight circle of premium red roses"], ["Sunflower ring", "a full golden frame of fresh sunflowers"], ["Pearl initial + wrap", "your letter hand-set in pearls, black star-cut wrap"]],
     sizes: [["Classic", 160], ["Grande", 210]],
     palette: ["#e9b93c", "#c96f4a", "#3c5934"],
-    wa: "Hi Flowers Pavon! I'd like to order the Sunflowers buch\u00f3n ($160).",
-    waes: "\u00a1Hola Flowers Pavon! Quisiera pedir el Ramo Buch\u00f3n de Girasoles ($160)."
+    wa: "Hi Flowers Pavon! I'd like to order the Sol y Rosas ramo ($160).",
+    waes: "\u00a1Hola Flowers Pavon! Quisiera pedir el ramo Sol y Rosas ($160)."
   },
   b4: {
     id: "b4", name: "Amor en Primavera", cat: "Arreglos Florales",
