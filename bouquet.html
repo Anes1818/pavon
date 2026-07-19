@@ -81,6 +81,7 @@
       <div class="bq-sizes" id="sizeChips"></div>
       <div class="bq-inside"><h3>What's inside</h3><ul id="insideList"></ul></div>
       <div class="bq-cta">
+        <a class="btn btn-rose" id="payBtn" href="#" style="display:none">💳 Pay online</a>
         <a class="btn btn-wa" id="orderBtn" href="#">Order on WhatsApp</a>
         <a class="btn btn-ghost" id="makeBtn" href="builder.html">🌸 Make my own</a>
       </div>
@@ -130,6 +131,8 @@
     ul.appendChild(li);
   });
   var order=$("orderBtn"), make=$("makeBtn");
+  var pay=$("payBtn");
+  if(pay&&b.pay){pay.style.display="";pay.href=b.pay;pay.target="_blank";pay.rel="noopener";}
   make.href="builder.html"+(b.tpl?("?tpl="+b.tpl):"");
   var curName=b.sizes[0][0], curPrice=b.sizes[0][1];
   function msgEN(){return "Hi Flowers Pavon! I'd like to order "+b.name+" \u2014 "+curName+" ($"+curPrice+").";}

@@ -6,6 +6,7 @@ window.BOUQUETS = {
   b1: {
     id: "b1", name: "Ramo #9 Sunflower \ud83c\udf3b", cat: "D\u00eda de la Madre",
     occ: "buchon madre", badge: "BEST SELLER", img: "assets/bouquets/b1.jpg", seed: 1, tpl: "round",
+    pay: "https://buy.stripe.com/test_9B64gy4KD1Gubj21lJ5Rm00",
     blurb: "A radiant dome of fresh sunflowers, hand-tied buch\u00f3n style with premium wrapping \u2014 our Mother's Day signature.",
     story: "Our number nine is the ramo that started the buch\u00f3n craze in the shop. Dozens of just-opened sunflowers are domed tightly by hand so every golden face points outward, collared in eucalyptus and finished in kraft paper with a wide satin bow. It is loud, happy and impossible to miss on a doorstep.",
     inside: [["Fresh sunflowers", "10\u201312 tight golden heads, domed buch\u00f3n-style"], ["Greenery collar", "eucalyptus & ruscus framing the dome"], ["Premium wrap", "kraft paper + wide satin ribbon, tied by hand"]],
@@ -20,10 +21,10 @@ window.BOUQUETS = {
     blurb: "Our grandest buch\u00f3n \u2014 a towering dome of premium red roses for the biggest declarations of love.",
     story: "When words are not enough, this is the answer. Fifty to sixty long-stem red roses are built into a tall, sculpted dome with a delicate baby's breath halo, double-wrapped and tied with velvet ribbon and a wax seal. It arrives as a statement, not a bouquet.",
     inside: [["Premium red roses", "50\u201360 long-stem roses in a tall dome"], ["Baby's breath halo", "a fine white cloud woven through the roses"], ["Luxury wrap", "double kraft + velvet ribbon and wax seal"]],
-    sizes: [["Grand", 550], ["Imperial", 720]],
+    sizes: [["Grand", 350], ["Imperial", 450]],
     palette: ["#c9556f", "#e2919f", "#f7f3e8"],
-    wa: "Hi Flowers Pavon! I'd like to order the Amor Infinito Luxury buch\u00f3n ($550).",
-    waes: "\u00a1Hola Flowers Pavon! Quisiera pedir el Ramo Buch\u00f3n Amor Infinito Luxury ($550)."
+    wa: "Hi Flowers Pavon! I'd like to order the Amor Infinito Luxury buch\u00f3n ($350).",
+    waes: "\u00a1Hola Flowers Pavon! Quisiera pedir el Ramo Buch\u00f3n Amor Infinito Luxury ($350)."
   },
   b3: {
     id: "b3", name: "Sunflowers Buch\u00f3n", cat: "Ramo Buch\u00f3n",
@@ -31,10 +32,10 @@ window.BOUQUETS = {
     blurb: "A sunny hand-domed buch\u00f3n of fresh sunflowers, wrapped and ribboned \u2014 pure joy in bloom.",
     story: "A smaller, everyday cousin of the Ramo #9 \u2014 the same joyful dome of sunflowers, sized for a desk, a kitchen table or a just-because surprise. Tied fresh the morning it goes out.",
     inside: [["Sunflowers", "8\u201310 domed golden heads"], ["Greens", "eucalyptus & solidago accents"], ["Wrap", "kraft paper + gingham ribbon"]],
-    sizes: [["Classic", 210], ["Grande", 280]],
+    sizes: [["Classic", 160], ["Grande", 210]],
     palette: ["#e9b93c", "#c96f4a", "#3c5934"],
-    wa: "Hi Flowers Pavon! I'd like to order the Sunflowers buch\u00f3n ($210).",
-    waes: "\u00a1Hola Flowers Pavon! Quisiera pedir el Ramo Buch\u00f3n de Girasoles ($210)."
+    wa: "Hi Flowers Pavon! I'd like to order the Sunflowers buch\u00f3n ($160).",
+    waes: "\u00a1Hola Flowers Pavon! Quisiera pedir el Ramo Buch\u00f3n de Girasoles ($160)."
   },
   b4: {
     id: "b4", name: "Amor en Primavera", cat: "Arreglos Florales",
@@ -42,10 +43,10 @@ window.BOUQUETS = {
     blurb: "A lavish spring arrangement bursting with color and texture \u2014 roses, tulips and seasonal blooms.",
     story: "Spring in a single arrangement. We mix roses and tulips with whatever seasonal blooms are most beautiful that week \u2014 ranunculus, alstroemeria, textured filler \u2014 for a garden-gathered look that feels effortless and expensive at once.",
     inside: [["Mixed roses & tulips", "pink, coral and cream tones"], ["Seasonal blooms", "ranunculus, alstroemeria & filler"], ["Greens & wrap", "eucalyptus, hand-tied in blush paper"]],
-    sizes: [["Standard", 300], ["Deluxe", 380]],
+    sizes: [["Standard", 120], ["Deluxe", 160]],
     palette: ["#eeb7c5", "#e9b93c", "#a9bb97"],
-    wa: "Hi Flowers Pavon! I'd like to order Amor en Primavera ($300).",
-    waes: "\u00a1Hola Flowers Pavon! Quisiera pedir Amor en Primavera ($300)."
+    wa: "Hi Flowers Pavon! I'd like to order Amor en Primavera ($120).",
+    waes: "\u00a1Hola Flowers Pavon! Quisiera pedir Amor en Primavera ($120)."
   },
   b5: {
     id: "b5", name: "Encanto Rosado", cat: "Arreglos Florales",
@@ -53,10 +54,10 @@ window.BOUQUETS = {
     blurb: "A soft pink charm \u2014 blush roses and delicate blooms in premium packaging.",
     story: "Gentle and romantic without being over the top. A dozen blush roses are nestled with airy filler and greenery, then wrapped in pearl tissue and satin \u2014 the bouquet people reach for when they want understated, grown-up pretty.",
     inside: [["Blush roses", "a dozen soft-pink roses"], ["Filler", "baby's breath & limonium"], ["Wrap", "pearl tissue + satin ribbon"]],
-    sizes: [["Petite", 160], ["Classic", 210]],
+    sizes: [["Petite", 85], ["Classic", 120]],
     palette: ["#eeb7c5", "#f6d5dd", "#a9bb97"],
-    wa: "Hi Flowers Pavon! I'd like to order Encanto Rosado ($160).",
-    waes: "\u00a1Hola Flowers Pavon! Quisiera pedir Encanto Rosado ($160)."
+    wa: "Hi Flowers Pavon! I'd like to order Encanto Rosado ($85).",
+    waes: "\u00a1Hola Flowers Pavon! Quisiera pedir Encanto Rosado ($85)."
   },
   b6: {
     id: "b6", name: "Red Roses Eternal", cat: "Flores Eternas",
