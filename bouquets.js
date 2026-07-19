@@ -68,5 +68,16 @@ window.BOUQUETS = {
     palette: ["#c9556f", "#a92a58", "#33312a"],
     wa: "Hi Flowers Pavon! I'd like to order Red Roses Eternal ($250).",
     waes: "\u00a1Hola Flowers Pavon! Quisiera pedir Rosas Rojas Eternas ($250)."
+  },
+  b7: {
+    id: "b7", name: "Coraz\u00f3n de Sol \u2764\ufe0f\ud83c\udf3b", cat: "Ramo Buch\u00f3n",
+    occ: "buchon love madre", badge: "NEW", img: "assets/bouquets/b7.jpg", seed: 4, tpl: "round",
+    blurb: "A hand-sculpted heart of red roses haloed by golden sunflowers, collared in a black star-cut wrap \u2014 finished with a personalized ribbon banner.",
+    story: "This is the ramo people stop to photograph. Dozens of red roses are shaped into a tight, velvety heart, then framed with a halo of fresh sunflowers and wisps of baby's breath. The whole piece sits in a dramatic black star-cut collar and carries a satin banner we print with your own words \u2014 a name, a date, a promise.",
+    inside: [["Red rose heart", "premium red roses hand-shaped into a dense heart"], ["Sunflower halo", "fresh sunflowers framing the heart, with baby's breath accents"], ["Star-cut wrap + banner", "black premium collar and a personalized satin ribbon"]],
+    sizes: [["Classic", 280], ["Grande", 360]],
+    palette: ["#a92a58", "#e9b93c", "#33312a"],
+    wa: "Hi Flowers Pavon! I'd like to order the Coraz\u00f3n de Sol heart buch\u00f3n ($280).",
+    waes: "\u00a1Hola Flowers Pavon! Quisiera pedir el Coraz\u00f3n de Sol \u2014 ramo buch\u00f3n de coraz\u00f3n ($280)."
   }
 };

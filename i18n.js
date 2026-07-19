@@ -34,6 +34,7 @@
     rec4:'<b>Contiene:</b> un arreglo primaveral exuberante lleno de color y textura — rosas, tulipanes y flores de temporada.',
     rec5:'<b>Contiene:</b> un encanto rosado suave — rosas rubor y flores delicadas en empaque premium.',
     rec6:'<b>Contiene:</b> rosas rojas preservadas que duran años — un amor que nunca se marchita, en caja de recuerdo.',
+    rec7:'<b>Contiene:</b> un corazón de rosas rojas esculpido a mano, enmarcado por girasoles dorados, en envoltura negra de corte estrella — con banda de listón personalizada.',
     order:'Pedir', makeown:'Arma el tuyo',
     m1:'ATADAS FRESCAS CADA MAÑANA', m2:'MISMO DÍA ANTES DE LA 1PM', m3:'100% LOCAL · SIN INTERMEDIARIOS', m4:'CADA PRECIO EN LA TARJETA',
     ana_kicker:'Escuela de floristas, 60 segundos', ana_h:'La anatomía de un<br>ramo perfecto.',
