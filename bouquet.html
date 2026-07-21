@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <title>Bouquet — Flowers Pavon</title>
 <meta name="description" content="Bouquet details from Flowers Pavon — what's inside, sizes and pricing. Order on WhatsApp or make your own in the Bouquet Studio.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -53,6 +54,17 @@
 .alsogrid .ttl-link:hover{color:#c9556f}
 @media(max-width:900px){.bq-detail{grid-template-columns:1fr;gap:26px}.bq-media{position:relative;top:auto;max-width:440px}.alsogrid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:640px){.bq-cta .btn{min-width:100%}.alsogrid{grid-template-columns:repeat(2,1fr);gap:12px}.bq-also{margin-top:48px}}
+/* demo payment notice */
+#payDemo{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(40,25,32,.45);backdrop-filter:blur(3px)}
+#payDemo.on{display:flex}
+#payDemo .card{max-width:480px;width:100%;background:#fff;border-radius:20px;padding:28px 26px 24px;box-shadow:0 24px 70px rgba(40,20,30,.35);position:relative}
+#payDemo h3{font-family:'Fraunces',serif;font-size:21px;line-height:1.25;margin:0 0 10px;color:#3a2a30}
+#payDemo p{font-size:14px;line-height:1.65;color:#6d5a60;margin:0 0 10px}
+#payDemo p b{color:#3a2a30}
+#payDemo .x{position:absolute;top:12px;right:14px;border:0;background:none;font-size:17px;cursor:pointer;color:#9a868c}
+#payDemo .tag{display:inline-block;font-family:var(--px);font-size:9px;letter-spacing:.1em;background:#fff3d6;color:#8a6a10;border-radius:999px;padding:5px 11px;margin-bottom:12px}
+#payDemo .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+#payDemo .acts .btn{flex:1;justify-content:center;min-height:46px}
 </style>
 </head>
 <body>
@@ -156,6 +168,22 @@
     var ref=(b.id+"-"+curName+(curLetter?("-initial-"+curLetter):"")).replace(/[^A-Za-z0-9_-]/g,"");
     return u+(u.indexOf("?")>=0?"&":"?")+"client_reference_id="+ref;
   }
+  function showPayDemo(){
+    var es=lang()==="es";
+    var m=document.getElementById("payDemo");
+    if(!m){
+      m=document.createElement("div"); m.id="payDemo";
+      m.addEventListener("click",function(e){if(e.target===m)m.classList.remove("on");});
+      document.body.appendChild(m);
+    }
+    var close="document.getElementById('payDemo').classList.remove('on')";
+    m.innerHTML='<div class="card"><button type="button" class="x" aria-label="Close" onclick="'+close+'">✕</button>'
+      +(es
+        ? '<span class="tag">VISTA DEMO</span><h3>Pago en línea — activo en 3 ramos de muestra</h3><p>Esto es una demo: el pago seguro con Stripe está activado en <b>tres ramos de muestra</b> (modo de prueba — nunca se cobra la tarjeta). Prueba uno y verás el flujo completo: pago → recibo → confirmación.</p><p>En el sitio en vivo, <b>cada ramo y cada tamaño</b> tiene su propio pago. El dinero llega directo a <b>tu cuenta de Stripe</b>, y el pedido completo — ramo, tamaño, personalización y contacto del cliente — te llega al instante por <b>correo, WhatsApp o Telegram</b>.</p><div class="acts"><a class="btn btn-rose" href="bouquet.html?id=b1">💳 Probar una muestra</a><button type="button" class="btn btn-ghost" onclick="'+close+'">Entendido</button></div>'
+        : '<span class="tag">DEMO PREVIEW</span><h3>Online checkout — live on 3 sample bouquets</h3><p>This is a demo: secure Stripe checkout is switched on for <b>three sample bouquets</b> (test mode — no card is ever charged). Try one to see the full flow: checkout → receipt → confirmation.</p><p>On the live site, <b>every bouquet and every size</b> gets its own checkout. Payments land directly in <b>your Stripe account</b>, and the full order — bouquet, size, personalization and customer contact — reaches you instantly by <b>email, WhatsApp or Telegram</b>.</p><div class="acts"><a class="btn btn-rose" href="bouquet.html?id=b1">💳 Try a live sample</a><button type="button" class="btn btn-ghost" onclick="'+close+'">Got it</button></div>')
+      +'</div>';
+    m.classList.add("on");
+  }
   function syncOrder(){
     order.setAttribute("data-wa",msgEN());
     order.setAttribute("data-wa-es",msgES());
@@ -163,8 +191,8 @@
     order.target="_blank"; order.rel="noopener";
     $("bqPrice").textContent="$"+curPrice;
     if(pay){var pu=payUrl();
-      if(pu){pay.style.display="";pay.href=pu;pay.target="_blank";pay.rel="noopener";}
-      else{pay.style.display="none";}
+      if(pu){pay.style.display="";pay.href=pu;pay.target="_blank";pay.rel="noopener";pay.onclick=null;}
+      else{pay.style.display="";pay.href="#";pay.removeAttribute("target");pay.onclick=function(e){e.preventDefault();showPayDemo();};}
     }
   }
   var sc=$("sizeChips");
