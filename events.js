@@ -1,20 +1,20 @@
-/* ===== Flowers Pavon — Seasonal Events Engine (ROBUSTE module) =====
+/* ===== Flowers Pavon — Seasonal Events Engine v2 (ROBUSTE module) =====
    One-line install on any page: <script src="events.js" defer></script>
 
-   What it does, automatically:
-   - Computes the next US floral holiday (fixed + floating dates, any year).
-   - 7 days before: gift tab appears, the whole site re-themes (CSS vars),
-     and the catalog section renames itself to the event collection and
-     filters to matching bouquets. Ends automatically after the event day.
-   - DEMO mode (DEMO=true below): tab always visible + one-button event
-     switcher inside the tab panel. Set DEMO=false for the live site.
-   - Manual preview also works via URL: index.html?event=valentine
+   - Always-on TOP RIBBON above the announcement bar: gift icon + next event
+     + live countdown. During an event it recolors and shows a CTA.
+   - Auto engine: computes US floral holidays (fixed + floating dates) for any
+     year. In production (DEMO=false) the theme activates 7 days before the
+     event and ends after the event day — zero maintenance.
+   - DEMO mode (DEMO=true): site starts on its NORMAL look; the ribbon shows a
+     "CHANGE EVENT" dropdown — pick any event to preview the full transform,
+     pick Normal day to go back. URL preview also works: ?event=valentine
 */
 (function(){
 "use strict";
 
 var DEMO = true;          // <- set to false in production
-var WINDOW_DAYS = 7;      // tab + theme appear this many days before the event
+var WINDOW_DAYS = 7;      // theme activates this many days before the event
 
 function nth(y,mon,dow,n){ var d=new Date(y,mon,1); var off=(dow-d.getDay()+7)%7; return new Date(y,mon,1+off+(n-1)*7); }
 
@@ -24,151 +24,144 @@ var EVENTS=[
   kicker:{en:"THE VALENTINE COLLECTION",es:"COLECCIÓN SAN VALENTÍN"},
   h:{en:"Say it with roses. Loudly. ❤️",es:"Dilo con rosas. Bien fuerte. ❤️"},
   p:{en:"Hand-sculpted ramos buchón for the biggest declarations — Valentine slots sell out every year, order early.",es:"Ramos buchón esculpidos a mano para las grandes declaraciones — los cupos de San Valentín vuelan cada año, pide temprano."},
-  cta:{en:"💘 Shop Valentine bouquets",es:"💘 Ver ramos de San Valentín"},
+  cta:{en:"💘 Shop Valentine bouquets →",es:"💘 Ver ramos de San Valentín →"},
   live:{en:"It's Valentine's Day! Order by 1PM for same-day delivery.",es:"¡Es San Valentín! Pide antes de la 1PM para entrega hoy."},
-  theme:{'--rose':'#c11f45','--terra':'#a5173a','--blush':'#f2b8c6','--blush2':'#e895a8','--sand':'#f9e7e9'}, annc:'#4a0e1d'},
+  theme:{'--rose':'#c11f45','--terra':'#a5173a','--blush':'#f2b8c6','--blush2':'#e895a8','--sand':'#f9e7e9'}, annc:'#4a0e1d', ribbon:'#8e1230'},
 
  {id:'womensday', icon:'💜', filter:'arreglos', date:function(y){return new Date(y,2,8);},
   name:{en:"Women's Day",es:"Día de la Mujer"},
   kicker:{en:"THE WOMEN'S DAY COLLECTION",es:"COLECCIÓN DÍA DE LA MUJER"},
   h:{en:"For the women who light every room. 💜",es:"Para las mujeres que lo iluminan todo. 💜"},
   p:{en:"Bright, elegant arrangements for March 8 — delivered same-day across Northern Virginia.",es:"Arreglos brillantes y elegantes para el 8 de marzo — entrega el mismo día en el norte de Virginia."},
-  cta:{en:"💜 Shop the collection",es:"💜 Ver la colección"},
+  cta:{en:"💜 Shop the collection →",es:"💜 Ver la colección →"},
   live:{en:"Happy Women's Day! Order by 1PM for same-day delivery.",es:"¡Feliz Día de la Mujer! Pide antes de la 1PM."},
-  theme:{'--rose':'#8e4d9e','--terra':'#7a3f8a','--blush':'#e3c6ec','--blush2':'#cfa3dd','--sand':'#f3ecf7'}, annc:'#3a2144'},
+  theme:{'--rose':'#8e4d9e','--terra':'#7a3f8a','--blush':'#e3c6ec','--blush2':'#cfa3dd','--sand':'#f3ecf7'}, annc:'#3a2144', ribbon:'#5e3070'},
 
  {id:'mothersday', icon:'🌷', filter:'madre', date:function(y){return nth(y,4,0,2);},
   name:{en:"Mother's Day",es:"Día de la Madre"},
   kicker:{en:"THE MOTHER'S DAY COLLECTION",es:"COLECCIÓN DÍA DE LA MADRE"},
   h:{en:"Mamá deserves the whole garden. 🌷",es:"Mamá se merece el jardín entero. 🌷"},
   p:{en:"Our Mother's Day signatures — sunflower buchones and blooming domes she will never forget.",es:"Nuestras firmas del Día de la Madre — buchones de girasol y domos en flor que nunca olvidará."},
-  cta:{en:"🌷 Shop Mother's Day",es:"🌷 Ver Día de la Madre"},
+  cta:{en:"🌷 Shop Mother's Day →",es:"🌷 Ver Día de la Madre →"},
   live:{en:"It's Mother's Day! Order by 1PM for same-day delivery.",es:"¡Es el Día de la Madre! Pide antes de la 1PM."},
-  theme:{'--rose':'#d4527b','--terra':'#b13a60','--blush':'#f6c6d4','--blush2':'#eda4b8','--sand':'#fbeaee'}, annc:'#5a1f33'},
+  theme:{'--rose':'#d4527b','--terra':'#b13a60','--blush':'#f6c6d4','--blush2':'#eda4b8','--sand':'#fbeaee'}, annc:'#5a1f33', ribbon:'#a03356'},
 
  {id:'fathersday', icon:'🌻', filter:'buchon', date:function(y){return nth(y,5,0,3);},
   name:{en:"Father's Day",es:"Día del Padre"},
   kicker:{en:"THE FATHER'S DAY COLLECTION",es:"COLECCIÓN DÍA DEL PADRE"},
   h:{en:"Bold ramos for the man of the house. 🌻",es:"Ramos con carácter para papá. 🌻"},
   p:{en:"Sunflowers, structure and statement wraps — nothing shy about these buchones.",es:"Girasoles, estructura y envolturas imponentes — buchones sin timidez."},
-  cta:{en:"🌻 Shop Father's Day",es:"🌻 Ver Día del Padre"},
+  cta:{en:"🌻 Shop Father's Day →",es:"🌻 Ver Día del Padre →"},
   live:{en:"It's Father's Day! Order by 1PM for same-day delivery.",es:"¡Es el Día del Padre! Pide antes de la 1PM."},
-  theme:{'--rose':'#2e5d8a','--terra':'#1f4668','--blush':'#c5d5e4','--blush2':'#a8c0d6','--sand':'#e9eef2'}, annc:'#16324a'},
+  theme:{'--rose':'#2e5d8a','--terra':'#1f4668','--blush':'#c5d5e4','--blush2':'#a8c0d6','--sand':'#e9eef2'}, annc:'#16324a', ribbon:'#24486b'},
 
  {id:'thanksgiving', icon:'🍂', filter:'arreglos', date:function(y){return nth(y,10,4,4);},
   name:{en:"Thanksgiving",es:"Acción de Gracias"},
   kicker:{en:"THE THANKSGIVING COLLECTION",es:"COLECCIÓN ACCIÓN DE GRACIAS"},
   h:{en:"A table that says thank you. 🍂",es:"Una mesa que dice gracias. 🍂"},
   p:{en:"Warm autumn arrangements for the gathering season — centerpieces that host the table with you.",es:"Arreglos otoñales cálidos para la temporada de reuniones — centros de mesa que reciben contigo."},
-  cta:{en:"🍂 Shop Thanksgiving",es:"🍂 Ver Acción de Gracias"},
+  cta:{en:"🍂 Shop Thanksgiving →",es:"🍂 Ver Acción de Gracias →"},
   live:{en:"Happy Thanksgiving! Order by 1PM for same-day delivery.",es:"¡Feliz Acción de Gracias! Pide antes de la 1PM."},
-  theme:{'--rose':'#b96a2f','--terra':'#9a4f1e','--blush':'#eed3b8','--blush2':'#dfb98f','--sand':'#f6e8d6'}, annc:'#4a2a10'},
+  theme:{'--rose':'#b96a2f','--terra':'#9a4f1e','--blush':'#eed3b8','--blush2':'#dfb98f','--sand':'#f6e8d6'}, annc:'#4a2a10', ribbon:'#7d4418'},
 
  {id:'christmas', icon:'🎄', filter:'eternas', date:function(y){return new Date(y,11,25);},
   name:{en:"Christmas",es:"Navidad"},
   kicker:{en:"THE CHRISTMAS COLLECTION",es:"COLECCIÓN NAVIDEÑA"},
   h:{en:"Roses that outlast the season. 🎄",es:"Rosas que duran más que diciembre. 🎄"},
   p:{en:"Preserved eternal roses and festive arrangements — gifts that keep blooming into the new year.",es:"Rosas eternas preservadas y arreglos festivos — regalos que siguen floreciendo en el año nuevo."},
-  cta:{en:"🎄 Shop Christmas gifts",es:"🎄 Ver regalos de Navidad"},
+  cta:{en:"🎄 Shop Christmas gifts →",es:"🎄 Ver regalos de Navidad →"},
   live:{en:"Merry Christmas! Order by 1PM for same-day delivery.",es:"¡Feliz Navidad! Pide antes de la 1PM."},
-  theme:{'--rose':'#b3223f','--terra':'#1e5b38','--blush':'#cfe3d2','--blush2':'#a8cdb0','--sand':'#e9f0e6'}, annc:'#12331f'}
+  theme:{'--rose':'#b3223f','--terra':'#1e5b38','--blush':'#cfe3d2','--blush2':'#a8cdb0','--sand':'#e9f0e6'}, annc:'#12331f', ribbon:'#1e5b38'}
 ];
 
 var T={
- next:{en:'NEXT EVENT',es:'PRÓXIMO EVENTO'},
- now:{en:'HAPPENING NOW',es:'ES HOY'},
- switch_:{en:'⟳ Switch event',es:'⟳ Cambiar evento'},
- normal:{en:'🌿 Normal day',es:'🌿 Día normal'},
- normalMode:{en:'normal day — how the site looks before the event',es:'día normal — así se ve el sitio antes del evento'},
- auto:{en:'auto (real calendar)',es:'auto (calendario real)'},
- days:{en:'d',es:'d'}
+ next:{en:'NEXT EVENT:',es:'PRÓXIMO EVENTO:'},
+ change:{en:'⚙ CHANGE EVENT',es:'⚙ CAMBIAR EVENTO'},
+ optNormal:{en:'🌿 Normal day',es:'🌿 Día normal'},
+ optAuto:{en:'⏱ Auto (real calendar)',es:'⏱ Auto (calendario real)'}
 };
 
 function lang(){ try{ return (localStorage.getItem('pavonLang')||'en')==='es'?'es':'en'; }catch(e){ return 'en'; } }
 function q(s){ return document.querySelector(s); }
 
-/* ---- resolve which event is next / active ---- */
+/* ---- date engine ---- */
 var DAY=86400000;
 function startOf(e){ var now=new Date(), y=now.getFullYear(); var d=e.date(y); var end=new Date(d.getTime()+DAY); if(now>=end){ d=e.date(y+1); } return d; }
 function nextEvent(){ var best=null,bd=null; EVENTS.forEach(function(e){ var d=startOf(e); if(!bd||d<bd){bd=d;best=e;} }); return best; }
 
-var override=null, forceOff=false;
+/* ---- mode resolution ----
+   modes: 'off' = normal look, 'auto' = real calendar, '<eventId>' = forced.
+   DEMO default: 'off' (site starts normal). Production default: 'auto'. */
+var mode;
 try{
   var qs=new URLSearchParams(location.search).get('event');
   var ls=localStorage.getItem('pavonEventDemo')||'';
-  var pick=qs!==null?qs:ls;
-  if(pick==='off'){ forceOff=true; }
-  else if(pick){ EVENTS.forEach(function(e){ if(e.id===pick) override=e; }); }
-}catch(e){}
+  mode=qs!==null&&qs!==''?qs:(ls||(DEMO?'off':'auto'));
+}catch(e){ mode=DEMO?'off':'auto'; }
+if(mode!=='off'&&mode!=='auto'&&!EVENTS.some(function(e){return e.id===mode;})) mode=DEMO?'off':'auto';
 
 var nextEv=nextEvent();
 var activeEv=null;
-if(forceOff){ activeEv=null; }
-else if(override){ activeEv=override; }
-else{ var st=startOf(nextEv); if(new Date().getTime() >= st.getTime()-WINDOW_DAYS*DAY){ activeEv=nextEv; } }
-var showTab = DEMO || !!activeEv;
-if(!showTab) return;
+if(mode==='auto'){ var st0=startOf(nextEv); if(new Date().getTime()>=st0.getTime()-WINDOW_DAYS*DAY) activeEv=nextEv; }
+else if(mode!=='off'){ EVENTS.forEach(function(e){ if(e.id===mode) activeEv=e; }); }
 
-/* ---- inject styles ---- */
+/* ---- styles ---- */
 var css=''+
-'#evTab{position:fixed;right:0;top:42%;z-index:96;background:var(--card);border:3px solid var(--ink);border-right:none;border-radius:14px 0 0 14px;padding:10px 11px 8px;cursor:pointer;box-shadow:-4px 4px 0 rgba(51,49,42,.16);display:flex;flex-direction:column;align-items:center;gap:4px;animation:evPulse 3.2s ease-in-out infinite}'+
-'#evTab .ico{font-size:22px;line-height:1}'+
-'#evTab .cnt{font-family:var(--px);font-size:8.5px;color:var(--rose);letter-spacing:.04em}'+
-'@keyframes evPulse{0%,100%{transform:scale(1)}6%{transform:scale(1.09)}12%{transform:scale(1)}}'+
-'#evPanel{position:fixed;right:14px;top:42%;transform:translateY(-12px);z-index:97;width:274px;max-width:calc(100vw - 28px);background:var(--card);border:3px solid var(--ink);box-shadow:6px 6px 0 rgba(51,49,42,.16);padding:20px 18px 12px;display:none}'+
-'#evPanel.open{display:block}'+
-'#evPanel .evx{position:absolute;top:8px;right:10px;background:none;border:none;font-size:15px;cursor:pointer;color:var(--muted)}'+
-'#evPanel .evico{font-size:34px;line-height:1;margin-bottom:8px}'+
-'#evPanel .evkick{font-family:var(--px);font-size:8.5px;letter-spacing:.14em;color:var(--terra);margin-bottom:6px}'+
-'#evPanel h3{font-family:var(--serif);font-size:22px;margin:0 0 10px;color:var(--ink)}'+
-'#evPanel .evcd{font-family:var(--px);font-size:15px;color:var(--rose);margin:0 0 14px;letter-spacing:.04em}'+
-'#evPanel .evlive{font-size:13.5px;font-weight:600;color:var(--ink);margin:0 0 14px;line-height:1.5}'+
-'#evPanel .btn{display:block;text-align:center;text-decoration:none;font-weight:700;font-size:14px;padding:11px 12px;border-radius:12px}'+
-'#evPanel .evdemo{margin-top:14px;padding-top:10px;border-top:2px dashed var(--line);display:flex;align-items:center;gap:8px;flex-wrap:wrap}'+
-'#evPanel .evdemo .tag{font-family:var(--px);font-size:7.5px;background:var(--ink);color:#fff;padding:3px 6px;border-radius:4px}'+
-'#evPanel .evdemo button{font-family:var(--sans);font-weight:700;font-size:12px;background:var(--sand);border:2px solid var(--ink);border-radius:9px;padding:5px 9px;cursor:pointer}'+
-'#evPanel .evdemo small{flex-basis:100%;color:var(--muted);font-size:11px}'+
+'#evRibbon{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 16px;background:#2b261c;color:#f5eeda;padding:9px 14px;font-family:var(--px,monospace);font-size:9px;letter-spacing:.06em;line-height:1.6;position:relative;z-index:98}'+
+'#evRibbon .ico{font-size:14px;line-height:1;animation:evPulse 3.2s ease-in-out infinite;display:inline-block}'+
+'@keyframes evPulse{0%,100%{transform:scale(1)}6%{transform:scale(1.25)}12%{transform:scale(1)}}'+
+'#evRibbon b{font-weight:400;color:#fff}'+
+'#evRibbon .cd{color:#ffd9a8;white-space:nowrap}'+
+'#evRibbon a.cta{color:#fff;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}'+
+'#evRibbon .pick{display:inline-flex;align-items:center;gap:6px}'+
+'#evRibbon select{background:rgba(0,0,0,.25);color:#fff;border:1px solid rgba(255,255,255,.45);border-radius:7px;font-family:var(--px,monospace);font-size:8px;padding:4px 5px;cursor:pointer;max-width:180px}'+
+'#evRibbon select option{background:#2b261c;color:#fff}'+
 '.fbtn.ev-glow{outline:3px solid var(--rose);outline-offset:2px}'+
-'@media(max-width:720px){#evTab{top:34%}#evPanel{top:34%}}';
+'@media(max-width:720px){#evRibbon{font-size:8px;padding:8px 10px;gap:4px 10px}}'+
+'#evBow{position:fixed;top:0;left:0;width:200px;height:auto;z-index:120;cursor:pointer;filter:drop-shadow(4px 6px 10px rgba(0,0,0,.3));transform:translate(-25%,-24%)}'+
+'@media(max-width:720px){#evBow{width:128px}#evRibbon{padding-left:104px}#annc{padding-left:104px}}'+
+'@media(min-width:721px){#nav .bar{padding-left:158px}#evRibbon{padding-left:158px}#annc{padding-left:158px}}';
 var st_=document.createElement('style'); st_.textContent=css; document.head.appendChild(st_);
 
-/* ---- inject tab + panel ---- */
-var tab=document.createElement('button'); tab.id='evTab'; tab.setAttribute('aria-label','Upcoming event');
-tab.innerHTML='<span class="ico">🎁</span><span class="cnt" id="evTabCnt"></span>';
-var panel=document.createElement('div'); panel.id='evPanel';
-panel.innerHTML='<button class="evx" id="evClose" aria-label="Close">✕</button>'+
-'<div class="evico" id="evIco"></div><div class="evkick" id="evKick"></div><h3 id="evName"></h3>'+
-'<div class="evcd" id="evCd"></div><div class="evlive" id="evLive" style="display:none"></div>'+
-'<a class="btn btn-rose" id="evCta" href="#catalog"></a>'+
-(DEMO?'<div class="evdemo"><span class="tag">DEMO</span><button id="evSwitch"></button><button id="evNormal"></button><small id="evMode"></small></div>':'');
-document.body.appendChild(tab); document.body.appendChild(panel);
+/* ---- inject always-on top ribbon ---- */
+var bar=document.createElement('div'); bar.id='evRibbon';
+bar.innerHTML='<span class="ico" id="evIco">🎁</span><span id="evTxt"></span><span class="cd" id="evCd"></span>'+
+'<a class="cta" id="evCta" href="#catalog" style="display:none"></a>'+
+(DEMO?'<span class="pick"><span id="evPickLbl"></span><select id="evSel" aria-label="Change event"></select></span>':'');
+document.body.insertBefore(bar, document.body.firstChild);
 
-tab.addEventListener('click',function(){ panel.classList.toggle('open'); });
-q('#evClose').addEventListener('click',function(){ panel.classList.remove('open'); });
-try{ if(sessionStorage.getItem('pavonEvPanel')==='1'){ panel.classList.add('open'); sessionStorage.removeItem('pavonEvPanel'); } }catch(e){}
+/* ---- corner bow: gift-wrap ribbon hugging the top-left page corner ----
+   Swaps per event (assets/bow-<id>.png), bow-normal.png on regular days. */
+var bow=document.createElement('img'); bow.id='evBow'; bow.alt='';
+bow.src='assets/bow-'+(activeEv?activeEv.id:'normal')+'.png';
+bow.addEventListener('click',function(){ var c=q('#catalog'); if(c)c.scrollIntoView({behavior:'smooth'}); });
+document.body.appendChild(bow);
 
-/* ---- demo switcher: one button cycles auto -> each event -> auto ---- */
-function demoGo(mode){
-  try{ if(mode)localStorage.setItem('pavonEventDemo',mode); else localStorage.removeItem('pavonEventDemo'); sessionStorage.setItem('pavonEvPanel','1'); }catch(e){}
-  var u=location.pathname+location.hash; location.href=u; // drop ?event= param, reload with new mode
-}
+/* ---- demo dropdown: pick an event directly ---- */
 if(DEMO){
-  q('#evSwitch').addEventListener('click',function(){
-    var ids=EVENTS.map(function(e){return e.id;});
-    var cur=''; try{ cur=localStorage.getItem('pavonEventDemo')||''; }catch(e){}
-    var list=[''].concat(ids);
-    var i=list.indexOf(cur); // 'off' -> -1 -> next is auto
-    demoGo(list[(i+1)%list.length]);
+  var sel=q('#evSel');
+  sel.addEventListener('change',function(){
+    try{ localStorage.setItem('pavonEventDemo',sel.value); }catch(e){}
+    location.href=location.pathname+location.hash; // reload without ?event= param
   });
-  q('#evNormal').addEventListener('click',function(){ demoGo('off'); });
+}
+function fillSelect(){
+  if(!DEMO) return;
+  var l=lang(), sel=q('#evSel'), html='';
+  html+='<option value="off">'+T.optNormal[l]+'</option>';
+  EVENTS.forEach(function(e){ html+='<option value="'+e.id+'">'+e.icon+' '+e.name[l]+'</option>'; });
+  html+='<option value="auto">'+T.optAuto[l]+'</option>';
+  sel.innerHTML=html; sel.value=mode;
+  q('#evPickLbl').textContent=T.change[l];
 }
 
-/* ---- theme + catalog transform when an event is active ---- */
+/* ---- theme + catalog transform ---- */
 function applyTheme(e){
   document.body.setAttribute('data-event',e.id);
   var root=document.documentElement.style;
   Object.keys(e.theme).forEach(function(k){ root.setProperty(k,e.theme[k]); });
   var a=q('#annc'); if(a){ a.style.background=e.annc; }
+  bar.style.background=e.ribbon;
 }
 function transformCatalog(e){
   var k=q('#catalog .sec-head .kicker'), h=q('#catalog .sec-head h2'), p=q('#catalog .sec-head p');
@@ -187,25 +180,23 @@ function pad(n){ return (n<10?'0':'')+n; }
 function render(){
   var l=lang();
   var ev=activeEv||nextEv;
-  var start=override?startOf(ev):startOf(ev); // same resolver either way
-  var now=new Date();
-  var end=new Date(start.getTime()+DAY);
+  var start=startOf(ev), now=new Date(), end=new Date(start.getTime()+DAY);
   var isLive=now>=start&&now<end;
-  var ms=start-now;
-  var d=Math.floor(ms/DAY), hh=Math.floor(ms%DAY/3600000), mm=Math.floor(ms%3600000/60000), ss=Math.floor(ms%60000/1000);
-  q('#evTabCnt').textContent=isLive?ev.icon:(d>0?d+T.days[l]:pad(hh)+':'+pad(mm));
-  q('#evCd').textContent=isLive?'🎉':(d>0? d+T.days[l]+' '+pad(hh)+':'+pad(mm)+':'+pad(ss) : pad(hh)+':'+pad(mm)+':'+pad(ss));
-  q('#evCd').style.display=isLive?'none':'block';
-  var lv=q('#evLive'); lv.style.display=isLive?'block':'none'; if(isLive)lv.textContent=ev.live[l];
+  if(isLive){
+    q('#evCd').textContent='';
+  }else{
+    var ms=start-now;
+    var d=Math.floor(ms/DAY), hh=Math.floor(ms%DAY/3600000), mm=Math.floor(ms%3600000/60000), ss=Math.floor(ms%60000/1000);
+    q('#evCd').textContent=(d>0?d+'d ':'')+pad(hh)+':'+pad(mm)+':'+pad(ss);
+  }
   if(l!==lastLang){
     lastLang=l;
-    q('#evIco').textContent=ev.icon;
-    q('#evKick').textContent=(activeEv?T.now:T.next)[l];
-    if(!isLive&&activeEv)q('#evKick').textContent=T.next[l];
-    if(isLive)q('#evKick').textContent=T.now[l];
-    q('#evName').textContent=ev.name[l];
-    q('#evCta').textContent=ev.cta[l];
-    if(DEMO){ q('#evSwitch').textContent=T.switch_[l]; q('#evNormal').textContent=T.normal[l]; q('#evMode').textContent=override?('event: '+override.id):(forceOff?T.normalMode[l]:T.auto[l]); }
+    q('#evIco').textContent=activeEv?ev.icon:'🎁';
+    q('#evTxt').textContent=isLive?ev.live[l]:(activeEv?ev.icon+' '+ev.name[l].toUpperCase()+' — ':T.next[l]+' '+ev.name[l]+' — ');
+    if(isLive)q('#evTxt').textContent=ev.live[l];
+    var cta=q('#evCta');
+    if(activeEv){ cta.style.display='inline'; cta.textContent=ev.cta[l]; } else { cta.style.display='none'; }
+    fillSelect();
     if(activeEv){ transformCatalog(activeEv); }
   }
 }
