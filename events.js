@@ -78,6 +78,8 @@ var T={
  next:{en:'NEXT EVENT',es:'PRÓXIMO EVENTO'},
  now:{en:'HAPPENING NOW',es:'ES HOY'},
  switch_:{en:'⟳ Switch event',es:'⟳ Cambiar evento'},
+ normal:{en:'🌿 Normal day',es:'🌿 Día normal'},
+ normalMode:{en:'normal day — how the site looks before the event',es:'día normal — así se ve el sitio antes del evento'},
  auto:{en:'auto (real calendar)',es:'auto (calendario real)'},
  days:{en:'d',es:'d'}
 };
@@ -90,17 +92,19 @@ var DAY=86400000;
 function startOf(e){ var now=new Date(), y=now.getFullYear(); var d=e.date(y); var end=new Date(d.getTime()+DAY); if(now>=end){ d=e.date(y+1); } return d; }
 function nextEvent(){ var best=null,bd=null; EVENTS.forEach(function(e){ var d=startOf(e); if(!bd||d<bd){bd=d;best=e;} }); return best; }
 
-var override=null;
+var override=null, forceOff=false;
 try{
   var qs=new URLSearchParams(location.search).get('event');
   var ls=localStorage.getItem('pavonEventDemo')||'';
   var pick=qs!==null?qs:ls;
-  if(pick){ EVENTS.forEach(function(e){ if(e.id===pick) override=e; }); }
+  if(pick==='off'){ forceOff=true; }
+  else if(pick){ EVENTS.forEach(function(e){ if(e.id===pick) override=e; }); }
 }catch(e){}
 
 var nextEv=nextEvent();
 var activeEv=null;
-if(override){ activeEv=override; }
+if(forceOff){ activeEv=null; }
+else if(override){ activeEv=override; }
 else{ var st=startOf(nextEv); if(new Date().getTime() >= st.getTime()-WINDOW_DAYS*DAY){ activeEv=nextEv; } }
 var showTab = DEMO || !!activeEv;
 if(!showTab) return;
@@ -136,7 +140,7 @@ panel.innerHTML='<button class="evx" id="evClose" aria-label="Close">✕</button
 '<div class="evico" id="evIco"></div><div class="evkick" id="evKick"></div><h3 id="evName"></h3>'+
 '<div class="evcd" id="evCd"></div><div class="evlive" id="evLive" style="display:none"></div>'+
 '<a class="btn btn-rose" id="evCta" href="#catalog"></a>'+
-(DEMO?'<div class="evdemo"><span class="tag">DEMO</span><button id="evSwitch"></button><small id="evMode"></small></div>':'');
+(DEMO?'<div class="evdemo"><span class="tag">DEMO</span><button id="evSwitch"></button><button id="evNormal"></button><small id="evMode"></small></div>':'');
 document.body.appendChild(tab); document.body.appendChild(panel);
 
 tab.addEventListener('click',function(){ panel.classList.toggle('open'); });
@@ -144,15 +148,19 @@ q('#evClose').addEventListener('click',function(){ panel.classList.remove('open'
 try{ if(sessionStorage.getItem('pavonEvPanel')==='1'){ panel.classList.add('open'); sessionStorage.removeItem('pavonEvPanel'); } }catch(e){}
 
 /* ---- demo switcher: one button cycles auto -> each event -> auto ---- */
+function demoGo(mode){
+  try{ if(mode)localStorage.setItem('pavonEventDemo',mode); else localStorage.removeItem('pavonEventDemo'); sessionStorage.setItem('pavonEvPanel','1'); }catch(e){}
+  var u=location.pathname+location.hash; location.href=u; // drop ?event= param, reload with new mode
+}
 if(DEMO){
   q('#evSwitch').addEventListener('click',function(){
     var ids=EVENTS.map(function(e){return e.id;});
     var cur=''; try{ cur=localStorage.getItem('pavonEventDemo')||''; }catch(e){}
     var list=[''].concat(ids);
-    var nxt=list[(list.indexOf(cur)+1)%list.length];
-    try{ if(nxt)localStorage.setItem('pavonEventDemo',nxt); else localStorage.removeItem('pavonEventDemo'); sessionStorage.setItem('pavonEvPanel','1'); }catch(e){}
-    var u=location.pathname+location.hash; location.href=u; // drop ?event= param, reload with new mode
+    var i=list.indexOf(cur); // 'off' -> -1 -> next is auto
+    demoGo(list[(i+1)%list.length]);
   });
+  q('#evNormal').addEventListener('click',function(){ demoGo('off'); });
 }
 
 /* ---- theme + catalog transform when an event is active ---- */
@@ -197,7 +205,7 @@ function render(){
     if(isLive)q('#evKick').textContent=T.now[l];
     q('#evName').textContent=ev.name[l];
     q('#evCta').textContent=ev.cta[l];
-    if(DEMO){ q('#evSwitch').textContent=T.switch_[l]; q('#evMode').textContent=override?('event: '+override.id):T.auto[l]; }
+    if(DEMO){ q('#evSwitch').textContent=T.switch_[l]; q('#evNormal').textContent=T.normal[l]; q('#evMode').textContent=override?('event: '+override.id):(forceOff?T.normalMode[l]:T.auto[l]); }
     if(activeEv){ transformCatalog(activeEv); }
   }
 }
