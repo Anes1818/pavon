@@ -73,7 +73,7 @@ window.BOUQUETS = {
   },
   b7: {
     id: "b7", name: "Coraz\u00f3n de Sol \u2764\ufe0f\ud83c\udf3b", cat: "Ramo Buch\u00f3n",
-    occ: "buchon love madre", badge: "NEW", img: "assets/bouquets/b1.jpg", seed: 4, tpl: "round",
+    occ: "buchon love madre", badge: "NEW", img: "assets/bouquets/b10.webp", seed: 4, tpl: "round",
     pay: "https://buy.stripe.com/test_7sY5kCdh9fxkaeY4xV5Rm02",
     blurb: "A hand-sculpted heart of red roses haloed by golden sunflowers, collared in a black star-cut wrap \u2014 finished with a personalized ribbon banner.",
     story: "This is the ramo people stop to photograph. Dozens of red roses are shaped into a tight, velvety heart, then framed with a halo of fresh sunflowers and wisps of baby's breath. The whole piece sits in a dramatic black star-cut collar and carries a satin banner we print with your own words \u2014 a name, a date, a promise.",
