@@ -59,21 +59,31 @@ html,body{overflow-x:clip}
 .hero-copy .kicker,.hero-copy p,.hero-copy .btn{animation:heroUp .9s cubic-bezier(.22,.9,.3,1) both}
 .hero-copy p{animation-delay:.25s}
 .hero-copy .btn{animation-delay:.45s}
+.hero-proof{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:14px;color:#766a6e;font-size:11.5px;font-weight:600}
+.hero-proof span{display:inline-flex;align-items:center;gap:5px}
 @keyframes heroUp{from{opacity:0;translate:0 18px}to{opacity:1;translate:0 0}}
 .dress-ribbon{position:absolute;left:0;top:0;width:3px;height:0;background:linear-gradient(rgba(201,85,111,.5),rgba(238,183,197,.35));z-index:7;will-change:height}
 .dress-hint{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font-family:var(--px);font-size:8.5px;letter-spacing:.12em;color:var(--muted);z-index:4;white-space:nowrap;animation:hintPulse 2.6s ease-in-out infinite}
 @keyframes hintPulse{0%,100%{opacity:.5}50%{opacity:1}}
 @media(max-width:820px){
-  .dress-act{height:230vh}
-  .dress-wrap{top:35%;right:-8vw}
-  .dress-path{width:150vw;right:-28vw;bottom:auto;top:7vh}
-  .dress-img{height:52vh;height:52svh}
-  .dress-copy{left:6vw;right:6vw;max-width:none;top:auto;bottom:7vh;bottom:7svh;transform:none}
-  .dress-copy h1{font-size:31px}
-  .dress-copy h2{font-size:27px}
-  .dress-copy p{font-size:14.5px;margin:12px 0 16px}
-  .dress-badge{width:64px;height:64px;right:12px;bottom:auto;top:74px}
-  .dress-hint{bottom:8px}
+  /* Phone-first: one clear story and CTA before any scrolling. */
+  .dress-act{height:auto}
+  .dress-stage{position:relative;top:auto;height:auto;min-height:calc(100svh - 116px);overflow:hidden;padding:0 0 28px;background:linear-gradient(180deg,#fffaf8 0%,#fdf4f2 48%,#fffdf8 100%)}
+  .dress-stage::before{content:'';position:absolute;left:16px;right:16px;top:74px;height:285px;border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.9),rgba(248,228,228,.72));border:1px solid rgba(201,85,111,.15);box-shadow:0 20px 48px -34px rgba(94,46,60,.42);z-index:0}
+  .dress-stage .stamp{top:18px;left:20px;font-size:8px;padding:7px 11px;background:#fffaf6}
+  .dress-path{display:block;width:610px;max-width:none;right:-218px;top:55px;bottom:auto;opacity:.2!important;mix-blend-mode:multiply;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 22%,#000 78%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 22%,#000 78%,transparent 100%)}
+  .dress-wrap{top:78px;right:-26px;width:265px;height:270px;transform:none!important;display:flex;align-items:flex-start;justify-content:center}
+  .dress-img{height:330px;width:auto;opacity:.94!important;-webkit-mask-image:linear-gradient(180deg,#000 0,#000 80%,transparent 100%);mask-image:linear-gradient(180deg,#000 0,#000 80%,transparent 100%);filter:drop-shadow(0 22px 34px rgba(134,90,98,.16))}
+  .dress-copy{position:relative;left:auto;right:auto;top:auto;bottom:auto;transform:none;max-width:none;margin:0;padding:382px 22px 0;z-index:7}
+  .dress-copy .kicker{font-size:8.5px;letter-spacing:.16em}
+  .dress-copy h1{font-size:clamp(34px,10.7vw,43px);line-height:1.01;margin-top:10px;max-width:9.5em}
+  .dress-copy h2{font-size:28px}
+  .dress-copy p{font-size:14px;line-height:1.6;margin:13px 0 17px;max-width:40ch}
+  .dress-copy .btn{width:100%;min-height:52px;justify-content:center;border-radius:14px;font-size:14px;box-shadow:0 12px 24px -16px rgba(169,44,78,.75)}
+  .hero-proof{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;margin-top:14px;font-size:10px}
+  .match-copy,.dress-badge,.dress-ribbon,.dress-hint{display:none!important}
+  .dress-petals.front{z-index:6}.dress-petals.back{z-index:1}
+  .dress-petals img{opacity:.72!important}
 }
 @media(prefers-reduced-motion:reduce){
   .dress-act{height:auto}
@@ -175,6 +185,7 @@ html,body{overflow-x:clip}
       <h1 id="pageTitle">The wedding collection, <em>tied by hand.</em></h1>
       <p>Every bouquet below is made to order for your day — tell us your date and your colors on WhatsApp, and we'll shape any of them around you.</p>
       <a class="btn btn-rose" data-wa="Hi Flowers Pavon! I'm planning a wedding and I'd like a free flowers consultation." href="#">💍 Plan my wedding flowers</a>
+      <div class="hero-proof" aria-label="Wedding service highlights"><span>✓ Free consultation</span><span>✓ Made for your date</span><span>✓ Northern Virginia</span><span>✓ Planned on WhatsApp</span></div>
     </div>
     <div class="dress-copy match-copy" id="dressCopy">
       <span class="kicker">♥ FOR THE DRESS YOU CHOSE ♥</span>
@@ -323,6 +334,14 @@ html,body{overflow-x:clip}
   if(!act||!wrap||!img||!copy||!hero) return;
   if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var mob=window.matchMedia?matchMedia('(max-width: 820px)').matches:false;
+  /* Mobile is intentionally a direct, static-first hero: image, promise and CTA
+     are all visible immediately. The cinematic scroll reveal remains desktop-only. */
+  if(mob){
+    document.body.classList.add('wedding-mobile-first');
+    hero.style.opacity='1';hero.style.visibility='visible';hero.style.pointerEvents='auto';
+    copy.style.display='none';
+    return;
+  }
 
   /* split the match headline into letters (word-safe) */
   var title=document.getElementById('dressTitle'),chars=[];
