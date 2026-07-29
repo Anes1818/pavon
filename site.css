@@ -208,7 +208,7 @@ canvas.card{image-rendering:pixelated;object-fit:contain;padding:8%}
 @media(max-width:640px){.ring-fog .in{padding:36px 30px}}
 
 /* ---- v5: pixelate hero + occasion band + free ring ---- */
-body{overflow-x:hidden}
+body{overflow-x:clip}
 .hero-inner h1,.hero-inner .sub,.hero-inner .kicker,.fx-hint{text-shadow:0 2px 14px rgba(250,245,234,.9),0 0 30px rgba(250,245,234,.7)}
 .fx-hint{font-family:var(--px);font-size:8.5px;color:var(--terra);margin:20px 0 4px;letter-spacing:.15em}
 #occband{background:var(--sand);border-bottom:2px solid var(--ink);padding:30px 0 36px}
@@ -387,7 +387,7 @@ footer{padding-top:44px}
 
 /* v10.1 — compact mobile navigation */
 @media(max-width:640px){
-  html,body{overflow-x:hidden}
+  html,body{overflow-x:clip}
   #nav .bar{height:58px;gap:8px;padding-left:14px;padding-right:14px}
   #nav .logo{min-width:0;flex:1;gap:7px}
   #nav .logo>span{min-width:0}
@@ -534,3 +534,11 @@ footer{padding-top:44px}
 }
 @media(max-width:390px){.sig-showcase{min-height:485px}.sig-photo{height:365px}.sig-main{width:330px}.sig-mini-b{display:none}.sig-mini-a{left:-5px}.sig-actions{flex-direction:column;gap:8px}.sig-actions .btn{width:100%}}
 @media(prefers-reduced-motion:reduce){.sig-photo img,.sig-mini{animation:none}}
+
+
+/* ---- pinned top stack: delivery notice + main nav stay on screen ---- */
+#evTopStack{position:sticky;top:0;z-index:150;transition:box-shadow .28s ease}
+#evTopStack.is-stuck{box-shadow:0 12px 30px -20px rgba(40,25,20,.55)}
+#evTopStack>#annc,#evTopStack>#evRibbon{position:relative;z-index:1}
+#evTopStack #nav{position:static;top:auto;z-index:auto;background:rgba(250,245,234,.97);backdrop-filter:blur(12px)}
+#evBow{z-index:210}

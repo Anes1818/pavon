@@ -117,11 +117,11 @@ var css=''+
 '#evRibbon select{background:rgba(0,0,0,.25);color:#fff;border:1px solid rgba(255,255,255,.45);border-radius:8px;font-family:var(--px,monospace);font-size:9px;padding:5px 7px;cursor:pointer;max-width:190px}'+
 '#evRibbon select option{background:#2b261c;color:#fff}'+
 '.fbtn.ev-glow{outline:3px solid var(--rose);outline-offset:2px}'+
-'#evTopStack{position:sticky;top:0;z-index:130}'+
+'#evTopStack{position:sticky;top:0;z-index:150;transition:box-shadow .28s ease}'+'#evTopStack.is-stuck{box-shadow:0 12px 30px -20px rgba(40,25,20,.55)}'+'#evTopStack #nav{position:static;top:auto;z-index:auto;background:rgba(250,245,234,.97)}'+
 '@media(max-width:720px){#evRibbon{min-height:48px;font-size:8.5px;padding:7px 10px;gap:4px 8px;line-height:1.35}#evRibbon .ico{font-size:14px}#evRibbon .pick{width:100%;justify-content:center;padding-left:0;border-left:0}#evRibbon select{font-size:8px;padding:4px 6px}}'+
-'#evBow{position:fixed;top:0;left:0;width:200px;height:auto;z-index:120;cursor:pointer;filter:drop-shadow(4px 6px 10px rgba(0,0,0,.3));transform:translate(-25%,-24%)}'+
-'@media(max-width:720px){body[data-event] #evBow{width:128px}body[data-event] #evRibbon{padding-left:104px}body[data-event] #annc{padding-left:104px}}'+
-'@media(min-width:721px){body[data-event] #nav .bar{padding-left:158px}body[data-event] #evRibbon{padding-left:158px}body[data-event] #annc{padding-left:158px}}'+
+'#evBow{position:fixed;top:0;left:0;width:200px;height:auto;z-index:210;cursor:pointer;filter:drop-shadow(4px 6px 10px rgba(0,0,0,.3));transform:translate(-25%,-24%)}'+
+'@media(max-width:720px){body[data-event] #evBow{width:124px}body[data-event] #evRibbon{padding-left:108px}body[data-event] #annc{padding-left:108px}body[data-event] #nav .bar{padding-left:112px}}'+
+'@media(min-width:721px){body[data-event] #nav .bar{padding-left:176px}body[data-event] #evRibbon{padding-left:172px}body[data-event] #annc{padding-left:172px}}'+
 '#evFall{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:119;contain:strict}'+
 '.ev-fall{position:absolute;top:-12vh;left:var(--x);width:var(--s);height:var(--s);opacity:var(--o);background-image:url("assets/event-sprites.webp");background-repeat:no-repeat;background-size:300% 200%;background-position:var(--sx) var(--sy);filter:drop-shadow(0 3px 3px rgba(40,30,30,.14));animation:evFall var(--d) linear var(--delay) 1 both;will-change:transform}'+
 '@keyframes evFall{0%{transform:translate3d(0,-12vh,0) rotate(0deg)}50%{transform:translate3d(var(--drift),52vh,0) rotate(190deg)}100%{transform:translate3d(var(--drift-end),112vh,0) rotate(380deg)}}'+
@@ -136,9 +136,11 @@ bar.innerHTML='<span class="ico" id="evIco">🎁</span><span id="evTxt"></span><
 document.body.insertBefore(bar, document.body.firstChild);
 
 /* Keep the event strip and same-day delivery notice visible while scrolling. */
-var topStack=document.createElement('div'); topStack.id='evTopStack';
-document.body.insertBefore(topStack,bar); topStack.appendChild(bar);
+var topStack=q('#evTopStack');
+if(!topStack){ topStack=document.createElement('div'); topStack.id='evTopStack'; document.body.insertBefore(topStack,bar); }
+topStack.insertBefore(bar, topStack.firstChild);
 var annc=q('#annc'); if(annc) topStack.appendChild(annc);
+var navEl=q('#nav'); if(navEl) topStack.appendChild(navEl);
 
 /* ---- event-only corner bow ----
    Normal mode stays clean. The decorative bow appears only with a theme. */
