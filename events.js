@@ -117,12 +117,13 @@ var css=''+
 '#evRibbon select{background:rgba(0,0,0,.25);color:#fff;border:1px solid rgba(255,255,255,.45);border-radius:8px;font-family:var(--px,monospace);font-size:9px;padding:5px 7px;cursor:pointer;max-width:190px}'+
 '#evRibbon select option{background:#2b261c;color:#fff}'+
 '.fbtn.ev-glow{outline:3px solid var(--rose);outline-offset:2px}'+
+'#evTopStack{position:sticky;top:0;z-index:130}'+
 '@media(max-width:720px){#evRibbon{min-height:48px;font-size:8.5px;padding:7px 10px;gap:4px 8px;line-height:1.35}#evRibbon .ico{font-size:14px}#evRibbon .pick{width:100%;justify-content:center;padding-left:0;border-left:0}#evRibbon select{font-size:8px;padding:4px 6px}}'+
 '#evBow{position:fixed;top:0;left:0;width:200px;height:auto;z-index:120;cursor:pointer;filter:drop-shadow(4px 6px 10px rgba(0,0,0,.3));transform:translate(-25%,-24%)}'+
 '@media(max-width:720px){body[data-event] #evBow{width:128px}body[data-event] #evRibbon{padding-left:104px}body[data-event] #annc{padding-left:104px}}'+
 '@media(min-width:721px){body[data-event] #nav .bar{padding-left:158px}body[data-event] #evRibbon{padding-left:158px}body[data-event] #annc{padding-left:158px}}'+
-'#evFall{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:119}'+
-'.ev-fall{position:absolute;top:-12vh;left:var(--x);font-size:var(--s);opacity:var(--o);filter:drop-shadow(0 2px 2px rgba(40,30,30,.12));animation:evFall var(--d) linear var(--delay) infinite;will-change:transform}'+
+'#evFall{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:119;contain:strict}'+
+'.ev-fall{position:absolute;top:-12vh;left:var(--x);width:var(--s);height:var(--s);opacity:var(--o);background-image:url("assets/event-sprites.webp");background-repeat:no-repeat;background-size:300% 200%;background-position:var(--sx) var(--sy);filter:drop-shadow(0 3px 3px rgba(40,30,30,.14));animation:evFall var(--d) linear var(--delay) 1 both;will-change:transform}'+
 '@keyframes evFall{0%{transform:translate3d(0,-12vh,0) rotate(0deg)}50%{transform:translate3d(var(--drift),52vh,0) rotate(190deg)}100%{transform:translate3d(var(--drift-end),112vh,0) rotate(380deg)}}'+
 '@media(prefers-reduced-motion:reduce){.ev-fall{display:none!important}#evRibbon .ico{animation:none}}';
 var st_=document.createElement('style'); st_.textContent=css; document.head.appendChild(st_);
@@ -133,6 +134,11 @@ bar.innerHTML='<span class="ico" id="evIco">🎁</span><span id="evTxt"></span><
 '<a class="cta" id="evCta" href="#catalog" style="display:none"></a>'+
 (DEMO?'<span class="pick"><span id="evPickLbl"></span><select id="evSel" aria-label="Change event"></select></span>':'');
 document.body.insertBefore(bar, document.body.firstChild);
+
+/* Keep the event strip and same-day delivery notice visible while scrolling. */
+var topStack=document.createElement('div'); topStack.id='evTopStack';
+document.body.insertBefore(topStack,bar); topStack.appendChild(bar);
+var annc=q('#annc'); if(annc) topStack.appendChild(annc);
 
 /* ---- event-only corner bow ----
    Normal mode stays clean. The decorative bow appears only with a theme. */
@@ -145,30 +151,32 @@ if(activeEv){
 
 /* ---- event atmosphere: light, event-specific falling details ---- */
 var FALLING={
-  valentine:['♥','🌹','♡'],
-  womensday:['✦','💜','❀'],
-  mothersday:['🌷','❀','🌸'],
-  fathersday:['🌻','•','🍃'],
-  thanksgiving:['🍂','🍁','•'],
-  christmas:['❄','❅','✦']
+  valentine:['0%','0%'],
+  womensday:['50%','0%'],
+  mothersday:['100%','0%'],
+  fathersday:['0%','100%'],
+  thanksgiving:['50%','100%'],
+  christmas:['100%','100%']
 };
 function addFalling(e){
-  var symbols=FALLING[e.id]||['✦'];
+  var clip=FALLING[e.id]||['0%','0%'];
   var layer=document.createElement('div'); layer.id='evFall'; layer.setAttribute('aria-hidden','true');
-  var count=window.innerWidth<720?16:28;
+  var count=window.innerWidth<720?9:16;
   for(var i=0;i<count;i++){
-    var p=document.createElement('span'); p.className='ev-fall'; p.textContent=symbols[i%symbols.length];
+    var p=document.createElement('span'); p.className='ev-fall ev-'+e.id;
+    p.style.setProperty('--sx',clip[0]); p.style.setProperty('--sy',clip[1]);
     p.style.setProperty('--x',(Math.random()*100).toFixed(2)+'vw');
-    p.style.setProperty('--s',(12+Math.random()*15).toFixed(1)+'px');
-    p.style.setProperty('--o',(0.28+Math.random()*0.5).toFixed(2));
-    p.style.setProperty('--d',(8+Math.random()*9).toFixed(1)+'s');
-    p.style.setProperty('--delay',(-Math.random()*16).toFixed(1)+'s');
+    p.style.setProperty('--s',(24+Math.random()*22).toFixed(1)+'px');
+    p.style.setProperty('--o',(0.16+Math.random()*0.24).toFixed(2));
+    p.style.setProperty('--d',(9+Math.random()*7).toFixed(1)+'s');
+    p.style.setProperty('--delay',(Math.random()*3.5).toFixed(2)+'s');
     var drift=-45+Math.random()*90;
     p.style.setProperty('--drift',drift.toFixed(0)+'px');
     p.style.setProperty('--drift-end',(drift*-.45).toFixed(0)+'px');
     layer.appendChild(p);
   }
   document.body.appendChild(layer);
+  setTimeout(function(){ if(layer&&layer.parentNode){ layer.parentNode.removeChild(layer); } },22000);
 }
 
 /* ---- demo dropdown: pick an event directly ---- */
