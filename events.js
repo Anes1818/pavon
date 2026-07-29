@@ -135,10 +135,11 @@ bar.innerHTML='<span class="ico" id="evIco">🎁</span><span id="evTxt"></span><
 (DEMO?'<span class="pick"><span id="evPickLbl"></span><select id="evSel" aria-label="Change event"></select></span>':'');
 document.body.insertBefore(bar, document.body.firstChild);
 
-/* Keep the event strip and same-day delivery notice visible while scrolling. */
+/* Only the same-day delivery notice and the main nav stay pinned.
+   The event strip scrolls away with the page. */
 var topStack=q('#evTopStack');
 if(!topStack){ topStack=document.createElement('div'); topStack.id='evTopStack'; document.body.insertBefore(topStack,bar); }
-topStack.insertBefore(bar, topStack.firstChild);
+if(bar.parentNode!==document.body||bar.nextSibling!==topStack){ document.body.insertBefore(bar,topStack); }
 var annc=q('#annc'); if(annc) topStack.appendChild(annc);
 var navEl=q('#nav'); if(navEl) topStack.appendChild(navEl);
 
@@ -169,7 +170,7 @@ function addFalling(e){
     p.style.setProperty('--sx',clip[0]); p.style.setProperty('--sy',clip[1]);
     p.style.setProperty('--x',(Math.random()*100).toFixed(2)+'vw');
     p.style.setProperty('--s',(24+Math.random()*22).toFixed(1)+'px');
-    p.style.setProperty('--o',(0.16+Math.random()*0.24).toFixed(2));
+    p.style.setProperty('--o',(0.92+Math.random()*0.08).toFixed(2));
     p.style.setProperty('--d',(9+Math.random()*7).toFixed(1)+'s');
     p.style.setProperty('--delay',(Math.random()*3.5).toFixed(2)+'s');
     var drift=-45+Math.random()*90;

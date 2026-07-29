@@ -539,6 +539,7 @@ footer{padding-top:44px}
 /* ---- pinned top stack: delivery notice + main nav stay on screen ---- */
 #evTopStack{position:sticky;top:0;z-index:150;transition:box-shadow .28s ease}
 #evTopStack.is-stuck{box-shadow:0 12px 30px -20px rgba(40,25,20,.55)}
-#evTopStack>#annc,#evTopStack>#evRibbon{position:relative;z-index:1}
+#evTopStack>#annc{position:relative;z-index:1}
+#evRibbon{position:relative;z-index:98}
 #evTopStack #nav{position:static;top:auto;z-index:auto;background:rgba(250,245,234,.97);backdrop-filter:blur(12px)}
 #evBow{z-index:210}
