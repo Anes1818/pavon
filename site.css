@@ -543,3 +543,38 @@ footer{padding-top:44px}
 #evRibbon{position:relative;z-index:98}
 #evTopStack #nav{position:static;top:auto;z-index:auto;background:rgba(250,245,234,.97);backdrop-filter:blur(12px)}
 #evBow{z-index:210}
+
+
+/* ---- weddings band on the homepage ---- */
+.fbtn.fbtn-jump{display:inline-flex;align-items:center;gap:6px;text-decoration:none;border-color:rgba(201,85,111,.5);color:var(--rose);background:linear-gradient(180deg,#fff,#fdeef1)}
+.fbtn.fbtn-jump::before{content:"\1F48D";font-size:12px}
+.fbtn.fbtn-jump:hover{background:var(--rose);color:#fff}
+.wedband{position:relative;overflow:hidden;background:radial-gradient(90% 120% at 82% 34%,#fff6f2 0%,rgba(255,246,242,0) 62%),linear-gradient(170deg,#fffdfb 0%,#fbf1f1 100%);border-top:1px solid rgba(201,85,111,.14);border-bottom:1px solid rgba(201,85,111,.14)}
+.wedband-in{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(20px,4vw,54px);align-items:center}
+.wedband-copy h2{font-family:var(--serif);font-weight:600;font-size:clamp(28px,3.6vw,46px);line-height:1.08;margin:12px 0 0}
+.wedband-copy h2 em{font-style:italic;color:var(--rose)}
+.wedband-copy p{color:var(--muted);margin:14px 0 18px;max-width:46ch;line-height:1.62}
+.wedband-list{list-style:none;margin:0 0 22px;padding:0;display:grid;gap:9px}
+.wedband-list li{position:relative;padding-left:26px;font-size:13.5px;font-weight:600;color:#5d5257}
+.wedband-list li::before{content:"✓";position:absolute;left:0;top:-1px;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-size:10px;color:#fff;background:var(--rose)}
+.wedband-cta{display:flex;flex-wrap:wrap;gap:10px}
+.wedband-cta .btn{min-height:48px}
+.wedband-shot{position:relative;display:block;justify-self:end;width:100%;max-width:420px;aspect-ratio:4/5;border-radius:26px;overflow:hidden;border:1px solid rgba(201,85,111,.2);background:linear-gradient(168deg,#fffdfb,#fbeef0);box-shadow:0 40px 60px -44px rgba(82,38,52,.7);text-decoration:none;transition:transform .35s cubic-bezier(.2,.9,.3,1),box-shadow .35s ease}
+.wedband-shot:hover{transform:translateY(-6px);box-shadow:0 48px 70px -44px rgba(82,38,52,.75)}
+.wedband-shot .glow{position:absolute;left:50%;top:46%;width:118%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,244,226,.95) 0%,rgba(253,214,204,.35) 46%,rgba(253,214,204,0) 70%);animation:wedGlow 8s ease-in-out infinite}
+@keyframes wedGlow{0%,100%{opacity:.75;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.05)}}
+.wedband-shot img{position:relative;z-index:2;display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;padding:16px 10px 0;filter:drop-shadow(0 26px 34px rgba(176,126,134,.26));animation:wedFloat 9s ease-in-out infinite}
+@keyframes wedFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-12px) rotate(-.6deg)}}
+.wedband-shot .tag{position:absolute;z-index:3;left:14px;bottom:14px;background:rgba(255,253,249,.9);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid rgba(201,85,111,.3);color:var(--rose);font-family:var(--px);font-size:8px;letter-spacing:.12em;padding:8px 12px;border-radius:999px}
+@media(max-width:860px){
+  .wedband-in{grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:16px}
+  .wedband-shot{max-width:none;aspect-ratio:3/4;border-radius:20px}
+  .wedband-copy p{font-size:13px;margin:11px 0 14px}
+  .wedband-list{gap:6px;margin-bottom:16px}
+  .wedband-list li{font-size:11.5px;padding-left:22px}
+  .wedband-list li::before{width:15px;height:15px;font-size:8px}
+  .wedband-cta{flex-direction:column;align-items:stretch}
+  .wedband-cta .btn{width:100%;justify-content:center;min-height:44px;font-size:12px;white-space:nowrap}
+  .wedband-shot .tag{font-size:6.5px;padding:6px 9px;left:9px;bottom:9px}
+}
+@media(prefers-reduced-motion:reduce){.wedband-shot img,.wedband-shot .glow{animation:none}}

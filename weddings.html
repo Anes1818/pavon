@@ -14,7 +14,7 @@
 /* bouquet grid */
 .wbq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 @media(max-width:960px){.wbq-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.wbq-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.wbq-grid{grid-template-columns:repeat(2,1fr);gap:12px}.wbq-grid .bq .body{padding:12px 12px 14px}.wbq-grid .bq h3{font-size:15px;line-height:1.2}.wbq-grid .bq .recipe{font-size:11.5px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.wbq-grid .bq .occ-tag{font-size:8.5px}.wbq-grid .bq .price{font-size:15px}.wbq-grid .bq .acts{flex-direction:column;gap:6px}.wbq-grid .bq .acts .btn{width:100%;justify-content:center;min-height:38px;padding:7px 8px;font-size:11px}}
 .ph-fb{position:absolute;inset:0;display:grid;place-items:center;font-size:64px;opacity:.9}
 .bq .ph img{position:relative;z-index:1}
 
@@ -23,87 +23,119 @@
 .wextras .items{display:flex;gap:22px;flex-wrap:wrap;font-size:14.5px;font-weight:600}
 .wextras .items b{color:var(--rose)}
 
-/* ===== weddings hero × dress reveal — one living scene ===== */
+/* ===== weddings hero — the floating dress that lights the page ===== */
 /* overflow-x:hidden on html+body (site.css, ≤640px) breaks position:sticky — clip doesn't */
 html,body{overflow-x:clip}
-.dress-act{position:relative;height:260vh}
-.dress-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:radial-gradient(60% 80% at 72% 55%,#fdf4f3 0%,rgba(253,244,243,0) 72%),linear-gradient(168deg,#fffefc 0%,#fdf7f5 55%,#fbf1f0 100%)}
-.dress-stage .stamp{position:absolute;top:76px;left:16px;background:rgba(255,253,246,.72);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);color:var(--rose);font-family:var(--px);font-size:8.5px;letter-spacing:.12em;padding:7px 13px;border:1px solid rgba(201,85,111,.35);border-radius:999px;z-index:7}
-.dress-petals{position:absolute;inset:0;pointer-events:none}
-.dress-petals.back{z-index:1}
-.dress-petals.front{z-index:5}
-.dress-petals img{position:absolute;top:0;opacity:0;will-change:transform;user-select:none}
-.dress-petals.back img{filter:blur(1.6px) saturate(.92)}
-.dress-path{position:absolute;right:-6vw;bottom:-4vh;width:min(72vw,1040px);z-index:1;opacity:0;pointer-events:none;user-select:none;mix-blend-mode:multiply;-webkit-mask-image:radial-gradient(72% 70% at 55% 52%,#000 40%,transparent 76%);mask-image:radial-gradient(72% 70% at 55% 52%,#000 40%,transparent 76%);will-change:transform,opacity}
-.dress-fly{position:absolute;left:0;top:0;z-index:6;opacity:0;pointer-events:none;will-change:transform,opacity}
-.dress-fly img{display:block;width:100%}
-.dress-dust{position:absolute;left:0;top:0;border-radius:50%;background:radial-gradient(circle,rgba(214,178,105,.85) 0%,rgba(214,178,105,0) 70%);pointer-events:none;z-index:2;opacity:0;will-change:transform,opacity}
-.dress-burst{position:absolute;left:0;top:0;z-index:6;pointer-events:none;will-change:transform,opacity}
-.dress-wrap{position:absolute;top:50%;right:4vw;z-index:3;transform:translate(38%,-50%) rotate(5deg);will-change:transform;pointer-events:none;user-select:none}
-.dress-img{display:block;height:min(86vh,980px);width:auto;opacity:0;-webkit-mask-image:linear-gradient(105deg,rgba(0,0,0,0) 42%,#000 55%);mask-image:linear-gradient(105deg,rgba(0,0,0,0) 42%,#000 55%);-webkit-mask-size:260% 100%;mask-size:260% 100%;-webkit-mask-position:0% 0;mask-position:0% 0;filter:drop-shadow(0 40px 70px rgba(190,150,155,.13));will-change:opacity,-webkit-mask-position,mask-position}
-.dress-badge{position:absolute;right:calc(4vw + 8px);bottom:6vh;width:104px;height:104px;z-index:6;opacity:0;transform:scale(.5) rotate(-24deg);will-change:transform,opacity;filter:drop-shadow(0 10px 22px rgba(51,49,42,.18))}
+.whero{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(130% 95% at 74% 42%,#fffaf7 0%,rgba(255,250,247,0) 60%),linear-gradient(168deg,#fffefc 0%,#fdf6f4 54%,#f8ecee 100%);border-bottom:1px solid rgba(201,85,111,.14)}
+.whero-inner{position:relative;z-index:3;max-width:1260px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(16px,4vw,46px) clamp(56px,7vw,92px);display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);gap:clamp(16px,4vw,54px);align-items:center;min-height:min(90svh,880px)}
+
+/* --- the light she casts --- */
+.whero-light{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.whero-light .halo{position:absolute;right:8%;top:44%;width:min(78vw,880px);aspect-ratio:1;transform:translate(18%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,246,229,.95) 0%,rgba(255,232,214,.55) 34%,rgba(253,214,204,.24) 55%,rgba(253,214,204,0) 72%);filter:blur(6px);animation:haloBreath 7.5s ease-in-out infinite}
+.whero-light .beam{position:absolute;right:-6%;top:-42%;width:min(96vw,1080px);height:150%;background:conic-gradient(from 190deg at 62% 12%,rgba(255,255,255,0) 0deg,rgba(255,248,232,.62) 18deg,rgba(255,255,255,0) 44deg,rgba(255,255,255,0) 300deg,rgba(255,244,226,.4) 330deg,rgba(255,255,255,0) 360deg);filter:blur(24px);opacity:.75;animation:beamDrift 14s ease-in-out infinite}
+.whero-light .wash{position:absolute;left:-14%;bottom:-34%;width:min(80vw,760px);aspect-ratio:1.2;border-radius:50%;background:radial-gradient(circle,rgba(246,205,214,.38) 0%,rgba(246,205,214,0) 68%);filter:blur(10px)}
+.whero-light .grain{position:absolute;inset:0;opacity:.5;background-image:radial-gradient(rgba(255,255,255,.9) 1px,transparent 1px);background-size:26px 26px;mask-image:radial-gradient(70% 60% at 72% 46%,#000 0%,transparent 74%);-webkit-mask-image:radial-gradient(70% 60% at 72% 46%,#000 0%,transparent 74%)}
+@keyframes haloBreath{0%,100%{opacity:.82;transform:translate(18%,-50%) scale(1)}50%{opacity:1;transform:translate(18%,-50%) scale(1.06)}}
+@keyframes beamDrift{0%,100%{opacity:.6;transform:rotate(-1.6deg)}50%{opacity:.9;transform:rotate(1.6deg)}}
+
+/* --- drifting petals --- */
+.whero-petals{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+.whero-petals img{position:absolute;top:0;left:0;width:26px;opacity:0;will-change:transform,opacity;user-select:none}
+
+/* --- copy side --- */
+.whero-copy{position:relative;z-index:4;max-width:560px}
+.whero-copy .stamp{display:inline-block;background:rgba(255,253,246,.78);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:var(--rose);font-family:var(--px);font-size:8.5px;letter-spacing:.14em;padding:7px 13px;border:1px solid rgba(201,85,111,.32);border-radius:999px;margin-bottom:16px}
+.whero-copy .kicker{display:block}
+.whero-copy h1{font-family:var(--serif);font-weight:600;line-height:1.05;margin:12px 0 0;font-size:clamp(34px,5vw,62px);letter-spacing:-.01em}
+.whero-copy h1 em{font-style:italic;color:var(--rose)}
+.whero-copy p{color:var(--muted);margin:16px 0 24px;max-width:44ch;font-size:clamp(14px,1.15vw,16.5px);line-height:1.62}
+.whero-cta{display:flex;flex-wrap:wrap;gap:10px}
+.whero-cta .btn{min-height:50px}
+.hero-proof{display:flex;flex-wrap:wrap;gap:9px 18px;margin-top:20px;color:#766a6e;font-size:11.5px;font-weight:600}
+.hero-proof span{display:inline-flex;align-items:center;gap:5px}
+.whero-copy>*{animation:heroUp .95s cubic-bezier(.22,.9,.3,1) both}
+.whero-copy .kicker{animation-delay:.06s}
+.whero-copy h1{animation-delay:.14s}
+.whero-copy p{animation-delay:.28s}
+.whero-cta{animation-delay:.4s}
+.hero-proof{animation-delay:.52s}
+@keyframes heroUp{from{opacity:0;translate:0 20px}to{opacity:1;translate:0 0}}
+
+/* --- the floating dress --- */
+.whero-dress{position:relative;z-index:3;justify-self:end;align-self:center;width:100%;display:flex;justify-content:center;align-items:center;transform:translate3d(var(--px,0px),var(--py,0px),0)}
+.dress-img{position:relative;z-index:3;display:block;height:min(78svh,780px);width:auto;max-width:118%;filter:drop-shadow(0 44px 60px rgba(176,126,134,.28)) drop-shadow(0 0 46px rgba(255,236,214,.55));animation:dressFloat 9.5s ease-in-out infinite;opacity:0;transform-origin:50% 92%}
+.dress-img.is-in{animation:dressEnter 1.5s cubic-bezier(.2,.85,.3,1) both,dressFloat 9.5s ease-in-out 1.5s infinite}
+@keyframes dressEnter{from{opacity:0;transform:translateY(38px) scale(.965) rotate(1.6deg)}to{opacity:1;transform:none}}
+@keyframes dressFloat{0%,100%{transform:translateY(0) rotate(0deg)}33%{transform:translateY(-16px) rotate(-.7deg)}66%{transform:translateY(9px) rotate(.6deg)}}
+.dress-floor{position:absolute;left:50%;bottom:2%;width:62%;height:42px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(150,104,112,.3) 0%,rgba(150,104,112,0) 70%);filter:blur(7px);z-index:1;animation:floorPulse 9.5s ease-in-out infinite}
+@keyframes floorPulse{0%,100%{opacity:.75;width:62%}33%{opacity:.5;width:54%}66%{opacity:.85;width:66%}}
+.dress-badge{position:absolute;right:2%;bottom:8%;width:106px;height:106px;z-index:5;filter:drop-shadow(0 12px 24px rgba(51,49,42,.2));animation:badgeIn 1s cubic-bezier(.2,.9,.3,1) .9s both}
+@keyframes badgeIn{from{opacity:0;transform:scale(.55) rotate(-22deg)}to{opacity:1;transform:none}}
 .dress-badge .ring{animation:badgeSpin 16s linear infinite;transform-origin:60px 60px}
 @keyframes badgeSpin{to{transform:rotate(360deg)}}
 .dress-badge text{font-family:var(--px);font-size:9.5px;letter-spacing:.22em;fill:var(--ink)}
 .dress-badge text.mid{font-size:26px}
-.dress-copy{position:absolute;top:50%;left:6vw;transform:translateY(-50%);max-width:560px;z-index:4}
-.dress-copy .kicker{display:block}
-.dress-copy h1{font-family:var(--serif);font-weight:600;line-height:1.08;margin:12px 0 0;font-size:clamp(32px,4.6vw,56px)}
-.dress-copy h1 em,.dress-copy h2 em{font-style:italic;color:var(--rose)}
-.dress-copy h2{font-family:var(--serif);font-weight:600;font-size:clamp(30px,4vw,52px);line-height:1.08;margin:12px 0 0}
-.dress-copy h2 .word{display:inline-block;white-space:nowrap}
-.dress-copy h2 .ch{display:inline-block;opacity:0;will-change:opacity,translate}
-.dress-copy p{color:var(--muted);margin:16px 0 22px;max-width:46ch}
-.match-copy{opacity:0;pointer-events:none}
-.match-copy .kicker,.match-copy p,.match-copy .btn{opacity:0;will-change:opacity,translate}
-.hero-copy .kicker,.hero-copy p,.hero-copy .btn{animation:heroUp .9s cubic-bezier(.22,.9,.3,1) both}
-.hero-copy p{animation-delay:.25s}
-.hero-copy .btn{animation-delay:.45s}
-.hero-proof{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:14px;color:#766a6e;font-size:11.5px;font-weight:600}
-.hero-proof span{display:inline-flex;align-items:center;gap:5px}
-@keyframes heroUp{from{opacity:0;translate:0 18px}to{opacity:1;translate:0 0}}
-.dress-ribbon{position:absolute;left:0;top:0;width:3px;height:0;background:linear-gradient(rgba(201,85,111,.5),rgba(238,183,197,.35));z-index:7;will-change:height}
-.dress-hint{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font-family:var(--px);font-size:8.5px;letter-spacing:.12em;color:var(--muted);z-index:4;white-space:nowrap;animation:hintPulse 2.6s ease-in-out infinite}
-@keyframes hintPulse{0%,100%{opacity:.5}50%{opacity:1}}
-@media(max-width:820px){
-  /* Restore the cinematic scroll reveal, with copy beside the moving dress. */
-  .dress-act{height:230vh}
-  .dress-stage{position:sticky;top:0;height:100svh;overflow:hidden}
-  .dress-stage .stamp{top:16px;left:16px}
-  .dress-wrap{top:49%;right:-19vw}
-  .dress-path{display:block;width:165vw;right:-74vw;bottom:auto;top:3vh}
-  .dress-img{height:66vh;height:66svh}
-  .dress-copy{left:16px;right:auto;top:50%;bottom:auto;transform:translateY(-50%);width:min(55vw,232px);max-width:none;padding:16px 15px 15px;border:1px solid rgba(201,85,111,.18);border-radius:18px;background:rgba(255,253,249,.82);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 20px 46px -30px rgba(82,38,52,.6);z-index:7}
-  .dress-copy .kicker{font-size:7.5px;letter-spacing:.12em}
-  .dress-copy h1{font-size:clamp(28px,8.3vw,34px);line-height:1.02;margin-top:9px}
-  .dress-copy h2{font-size:clamp(25px,7.4vw,30px);line-height:1.03}
-  .dress-copy p{font-size:12.5px;line-height:1.5;margin:11px 0 13px}
-  .dress-copy .btn{width:100%;min-height:48px;padding:10px 9px;justify-content:center;border-radius:12px;font-size:11.5px;line-height:1.25;text-align:center}
-  .hero-proof{display:none}
-  .dress-badge{width:60px;height:60px;right:10px;bottom:12vh;top:auto}
-  .dress-hint{bottom:7px;font-size:7px}
+.whero-scroll{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:4;font-family:var(--px);font-size:8.5px;letter-spacing:.14em;color:var(--muted);white-space:nowrap;animation:hintPulse 2.6s ease-in-out infinite}
+@keyframes hintPulse{0%,100%{opacity:.45}50%{opacity:1}}
+
+/* --- match band under the hero --- */
+.wmatch{position:relative;background:linear-gradient(180deg,#fdf6f4,#fffdfb);border-bottom:1px solid rgba(201,85,111,.12)}
+.wmatch .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(16px,3vw,44px);align-items:center;padding-top:clamp(38px,5vw,64px);padding-bottom:clamp(38px,5vw,64px)}
+.wmatch h2{font-family:var(--serif);font-weight:600;font-size:clamp(26px,3.2vw,42px);line-height:1.08;margin:10px 0 0}
+.wmatch h2 em{font-style:italic;color:var(--rose)}
+.wmatch p{color:var(--muted);margin:14px 0 20px;max-width:46ch}
+.wmatch .shots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.wmatch .shots span{aspect-ratio:3/4;border-radius:14px;border:1px solid rgba(201,85,111,.18);background:linear-gradient(160deg,#fff,#fbeef0);display:grid;place-items:center;font-size:26px;box-shadow:0 18px 34px -26px rgba(82,38,52,.55)}
+
+@media(max-width:980px){
+  .whero-inner{grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);gap:14px;min-height:auto;padding-top:clamp(48px,9vw,78px)}
+  .dress-img{height:min(62svh,560px);max-width:130%}
+  .dress-badge{width:74px;height:74px;right:-2%;bottom:6%}
+}
+@media(max-width:720px){
+  .whero-inner{grid-template-columns:minmax(0,1.24fr) minmax(0,.76fr);gap:4px;padding:26px 16px 34px;align-items:center}
+  .whero-copy .stamp{font-size:6.5px;padding:5px 9px;margin-bottom:8px;letter-spacing:.1em}
+  .whero-copy .kicker{font-size:8.5px;letter-spacing:.1em;white-space:nowrap}
+  .whero-copy h1{font-size:clamp(27px,8.2vw,36px);line-height:1.03;margin-top:8px}
+  .whero-copy p{font-size:12.5px;line-height:1.5;margin:10px 0 14px;max-width:none}
+  .whero-cta{flex-direction:column;align-items:stretch;gap:8px}
+  .whero-cta .btn{width:100%;justify-content:center;min-height:44px;padding:9px 10px;font-size:12px;white-space:nowrap}
+  .hero-proof{gap:5px 12px;font-size:9.5px;margin-top:12px}
+  /* phone: she stands in the middle of the stage, the words rest on her light */
+  .whero-inner{grid-template-columns:1fr;position:relative}
+  .whero-dress{position:absolute;inset:0;margin:0;justify-content:center;align-items:center;z-index:1;pointer-events:none}
+  .whero-dress::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(255,252,249,.9) 0%,rgba(255,252,249,.66) 46%,rgba(255,250,246,.2) 74%,rgba(255,250,246,0) 100%)}
+  .dress-img{height:min(64svh,520px);max-width:none;filter:drop-shadow(0 22px 34px rgba(176,126,134,.24)) drop-shadow(0 0 34px rgba(255,236,214,.55))}
+  .dress-floor{width:46%;height:24px;bottom:6%}
+  .dress-badge{width:52px;height:52px;right:6%;bottom:2%;z-index:5}
+  .whero-copy{position:relative;z-index:4;max-width:none;text-shadow:0 1px 12px rgba(255,252,250,.85)}
+  .whero-light .halo{right:-14%;width:128vw}
+  .whero-scroll{font-size:7px;bottom:8px}
+  .wmatch .wrap{grid-template-columns:1fr;gap:20px}
+}
+@media(max-width:400px){
+  .whero-copy h1{font-size:26px}
+  .dress-img{height:min(58svh,440px)}
+  .dress-badge{width:46px;height:46px;right:5%}
 }
 @media(prefers-reduced-motion:reduce){
-  .dress-act{height:auto}
-  .dress-stage{position:relative;height:auto;padding:110px 0 44px}
-  .dress-petals,.dress-ribbon,.dress-hint,.dress-badge,.dress-path{display:none}
-  .dress-wrap{position:relative;top:auto;right:auto;transform:none;width:min(78vw,420px);margin:0 auto 26px}
-  .dress-img{height:auto;width:100%;opacity:1;-webkit-mask-image:none;mask-image:none}
-  .dress-copy{position:relative;top:auto;left:auto;bottom:auto;transform:none;max-width:none;padding:0 24px}
-  .hero-copy .kicker,.hero-copy p,.hero-copy .btn{animation:none}
-  .match-copy{opacity:1;pointer-events:auto;margin-top:28px}
-  .match-copy .kicker,.match-copy p,.match-copy .btn{opacity:1}
-  .dress-copy h2 .ch{opacity:1}
+  .whero-copy>*,.dress-img,.dress-img.is-in,.dress-floor,.dress-badge,.dress-badge .ring,.whero-scroll,.whero-light .halo,.whero-light .beam{animation:none!important}
+  .dress-img{opacity:1}
+  .whero-petals{display:none}
 }
 
 /* trust strip, wedding set, size guide (inspired by product-page patterns) */
-.wtrust{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.wtrust .tb{background:var(--card);border:1px solid rgba(201,85,111,.14);border-radius:16px;padding:24px 18px;text-align:center}
-.wtrust .tb .ic{font-size:26px;display:block;margin-bottom:10px}
-.wtrust .tb h4{font-family:var(--serif);font-size:17px;margin:0 0 6px;color:var(--ink)}
-.wtrust .tb p{font-size:13px;color:var(--muted);margin:0;line-height:1.55}
+.wtrust{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:tb}
+.wtrust .tb{position:relative;overflow:hidden;background:linear-gradient(168deg,#fffdfb,#fdf4f4);border:1px solid rgba(201,85,111,.16);border-radius:20px;padding:26px 20px 24px;text-align:left;box-shadow:0 24px 40px -34px rgba(82,38,52,.6);transition:transform .3s cubic-bezier(.2,.9,.3,1),box-shadow .3s ease,border-color .3s ease}
+.wtrust .tb::before{counter-increment:tb;content:"0" counter(tb);position:absolute;top:14px;right:16px;font-family:var(--px);font-size:9px;letter-spacing:.1em;color:rgba(201,85,111,.42)}
+.wtrust .tb::after{content:"";position:absolute;left:0;top:0;width:100%;height:3px;background:linear-gradient(90deg,var(--rose),rgba(238,183,197,.25));transform:scaleX(.28);transform-origin:left;transition:transform .35s ease}
+.wtrust .tb:hover{transform:translateY(-6px);border-color:rgba(201,85,111,.34);box-shadow:0 30px 48px -32px rgba(82,38,52,.65)}
+.wtrust .tb:hover::after{transform:scaleX(1)}
+.wtrust .tb .ic{display:inline-grid;place-items:center;width:46px;height:46px;border-radius:14px;background:rgba(255,255,255,.85);border:1px solid rgba(201,85,111,.16);font-size:22px;margin-bottom:14px;box-shadow:0 10px 20px -14px rgba(82,38,52,.7)}
+.wtrust .tb h4{font-family:var(--serif);font-size:18px;margin:0 0 7px;color:var(--ink);line-height:1.2}
+.wtrust .tb p{font-size:13px;color:var(--muted);margin:0;line-height:1.6}
 @media(max-width:860px){.wtrust{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.wtrust{grid-template-columns:1fr}}
+@media(max-width:600px){.wtrust{grid-template-columns:repeat(2,1fr);gap:10px}.wtrust .tb{padding:16px 13px 15px;border-radius:16px}.wtrust .tb .ic{width:36px;height:36px;font-size:18px;border-radius:11px;margin-bottom:9px}.wtrust .tb h4{font-size:14.5px}.wtrust .tb p{font-size:11.5px;line-height:1.5}.wtrust .tb::before{top:10px;right:10px;font-size:7.5px}}
 .wset{background:var(--card);border:1px solid rgba(201,85,111,.18);border-radius:22px;padding:34px;display:grid;grid-template-columns:1.15fr .85fr;gap:34px;align-items:center}
 @media(max-width:860px){.wset{grid-template-columns:1fr;padding:24px}}
 .wset .it{display:flex;gap:14px;align-items:flex-start;padding:15px 0;border-bottom:1px dashed rgba(201,85,111,.2)}
@@ -160,39 +192,50 @@ html,body{overflow-x:clip}
   </div>
 </div></nav>
 
-<section class="dress-act" id="dressAct" aria-label="Weddings — the dress reveal">
-  <div class="dress-stage">
-    <span class="stamp">PAVON · WEDDINGS</span>
-    <img class="dress-path" id="dressPath" src="assets/path.webp" alt="" aria-hidden="true">
-    <div class="dress-petals back" aria-hidden="true"></div>
-    <div class="dress-wrap" id="dressWrap">
-      <img class="dress-img" id="dressImg" src="assets/dress.webp" alt="Flowing ivory and blush wedding dress" onerror="this.onerror=null;this.src='assets/dress.png'">
-    </div>
-    <div class="dress-petals front" aria-hidden="true"></div>
-    <svg class="dress-badge" id="dressBadge" viewBox="0 0 120 120" aria-hidden="true">
-      <circle cx="60" cy="60" r="58" fill="rgba(255,253,246,.92)" stroke="#c9556f" stroke-width="1.2"/>
-      <circle cx="60" cy="60" r="35" fill="none" stroke="#c9556f" stroke-width="1" stroke-dasharray="2 4"/>
-      <g class="ring">
-        <path id="bqc" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0" fill="none"/>
-        <text><textPath href="#bqc">HANDCRAFTED · FOR YOUR DAY · PAVON ·</textPath></text>
-      </g>
-      <text class="mid" x="60" y="69" text-anchor="middle">💐</text>
-    </svg>
-    <div class="dress-copy hero-copy" id="heroCopy">
+<section class="whero" id="whero" aria-label="Weddings — bridal flowers">
+  <div class="whero-light" aria-hidden="true"><span class="beam"></span><span class="halo"></span><span class="wash"></span><span class="grain"></span></div>
+  <div class="whero-petals" id="wheroPetals" aria-hidden="true"></div>
+
+  <div class="whero-inner">
+    <div class="whero-copy">
+      <span class="stamp">PAVON · WEDDINGS</span>
       <span class="kicker">♥ WEDDINGS &amp; EVENTS ♥</span>
       <h1 id="pageTitle">The wedding collection, <em>tied by hand.</em></h1>
       <p>Every bouquet below is made to order for your day — tell us your date and your colors on WhatsApp, and we'll shape any of them around you.</p>
-      <a class="btn btn-rose" data-wa="Hi Flowers Pavon! I'm planning a wedding and I'd like a free flowers consultation." href="#">💍 Plan my wedding flowers</a>
+      <div class="whero-cta">
+        <a class="btn btn-rose" data-wa="Hi Flowers Pavon! I'm planning a wedding and I'd like a free flowers consultation." href="#">💍 Plan my wedding flowers</a>
+        <a class="btn btn-ghost" href="#bouquets">See the bouquets ↓</a>
+      </div>
       <div class="hero-proof" aria-label="Wedding service highlights"><span>✓ Free consultation</span><span>✓ Made for your date</span><span>✓ Northern Virginia</span><span>✓ Planned on WhatsApp</span></div>
     </div>
-    <div class="dress-copy match-copy" id="dressCopy">
+
+    <div class="whero-dress" id="wheroDress">
+      <img class="dress-img" id="dressImg" src="assets/dress.webp" alt="Flowing ivory and blush wedding dress" onerror="this.onerror=null;this.src='assets/dress.png'">
+      <div class="dress-floor" aria-hidden="true"></div>
+      <svg class="dress-badge" id="dressBadge" viewBox="0 0 120 120" aria-hidden="true">
+        <circle cx="60" cy="60" r="58" fill="rgba(255,253,246,.92)" stroke="#c9556f" stroke-width="1.2"/>
+        <circle cx="60" cy="60" r="35" fill="none" stroke="#c9556f" stroke-width="1" stroke-dasharray="2 4"/>
+        <g class="ring">
+          <path id="bqc" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0" fill="none"/>
+          <text><textPath href="#bqc">HANDCRAFTED · FOR YOUR DAY · PAVON ·</textPath></text>
+        </g>
+        <text class="mid" x="60" y="69" text-anchor="middle">💐</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="whero-scroll" aria-hidden="true">✿ SCROLL — SEE THE BOUQUETS ✿</div>
+</section>
+
+<section class="wmatch" id="match" aria-label="Match your dress">
+  <div class="wrap">
+    <div class="rv">
       <span class="kicker">♥ FOR THE DRESS YOU CHOSE ♥</span>
-      <h2 id="dressTitle">You found the dress. <em>We'll match the flowers.</em></h2>
+      <h2>You found the dress. <em>We'll match the flowers.</em></h2>
       <p>Ivory, blush or bold — send us a photo of your dress on WhatsApp and we'll design a bouquet that looks born next to it.</p>
       <a class="btn btn-rose" data-wa="Hi Flowers Pavon! Here's my wedding dress — can you design a bouquet to match it?" href="#">💐 Match my dress</a>
     </div>
-    <div class="dress-ribbon" id="dressRibbon" aria-hidden="true"></div>
-    <div class="dress-hint">✿ SCROLL — SHE'S ARRIVING ✿</div>
+    <div class="shots rv" aria-hidden="true"><span>🤍</span><span>🌸</span><span>🌹</span></div>
   </div>
 </section>
 
@@ -326,193 +369,77 @@ html,body{overflow-x:clip}
 })();
 </script>
 <script>
-/* --- weddings hero × dress reveal — a living scene --- */
+/* --- weddings hero: floating dress, ambient light, drifting petals --- */
 (function(){
-  var act=document.getElementById('dressAct'),wrap=document.getElementById('dressWrap'),img=document.getElementById('dressImg'),hero=document.getElementById('heroCopy'),copy=document.getElementById('dressCopy'),badge=document.getElementById('dressBadge'),ribbon=document.getElementById('dressRibbon'),path=document.getElementById('dressPath');
-  if(!act||!wrap||!img||!copy||!hero) return;
-  if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var mob=window.matchMedia?matchMedia('(max-width: 820px)').matches:false;
-  /* split the match headline into letters (word-safe) */
-  var title=document.getElementById('dressTitle'),chars=[];
-  (function walk(n){Array.prototype.slice.call(n.childNodes).forEach(function(c){
-    if(c.nodeType===3){
-      var f=document.createDocumentFragment();
-      c.textContent.split(/(\s+)/).forEach(function(w){
-        if(!w)return;
-        if(/^\s+$/.test(w)){f.appendChild(document.createTextNode(' '));return}
-        var wd=document.createElement('span');wd.className='word';
-        w.split('').forEach(function(ch){
-          var s=document.createElement('span');s.className='ch';s.textContent=ch;wd.appendChild(s);chars.push(s);
-        });
-        f.appendChild(wd);
-      });
-      n.replaceChild(f,c);
-    } else if(c.nodeType===1){walk(c)}
-  })})(title);
+  var hero=document.getElementById('whero'),
+      dress=document.getElementById('wheroDress'),
+      img=document.getElementById('dressImg'),
+      box=document.getElementById('wheroPetals');
+  if(!hero||!dress||!img) return;
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* real rose petals on two depth layers — falling forever */
-  var petals=[];
-  ['back','front'].forEach(function(layer){
-    var box=act.querySelector('.dress-petals.'+layer);if(!box)return;
-    var n=mob?(layer==='front'?5:4):(layer==='front'?9:7);
-    for(var i=0;i<n;i++){
-      var el=document.createElement('img');
-      el.src='assets/petals/p'+(1+Math.floor(Math.random()*8))+'.webp';el.alt='';
-      el.style.width=((layer==='front'?20:12)+Math.random()*(mob?10:16))+'px';
-      var x=3+Math.random()*92;el.style.left=x+'%';
-      box.appendChild(el);
-      petals.push({el:el,x:x,y:Math.random()*115-10,v:(layer==='front'?3.4:1.8)+Math.random()*2.8,amp:10+Math.random()*22,freq:0.4+Math.random()*0.7,ph:Math.random()*6.28,r0:Math.random()*360,rv:Math.random()*44-22});
-    }
-  });
+  /* she arrives */
+  function enter(){ img.classList.add('is-in'); }
+  if(reduce){ img.style.opacity=1; }
+  else if(img.complete){ requestAnimationFrame(enter); }
+  else { img.addEventListener('load',enter); img.addEventListener('error',enter); }
 
+  if(reduce||!box) return;
 
-  var stage=act.querySelector('.dress-stage');
-
-  /* golden light dust — tiny lanterns rising through the scene */
-  var dust=[];
-  (function(){
-    var n=mob?9:16;
-    for(var i=0;i<n;i++){
-      var d=document.createElement('span');d.className='dress-dust';
-      var s=2.5+Math.random()*4.5;d.style.width=s+'px';d.style.height=s+'px';
-      stage.appendChild(d);
-      dust.push({el:d,x:Math.random()*100,y:Math.random()*100,v:1.2+Math.random()*2.2,amp:6+Math.random()*14,freq:0.25+Math.random()*0.5,ph:Math.random()*6.28,tw:1.5+Math.random()*2.5});
-    }
-  })();
-
-  /* butterflies on lazy figure-eights around her */
-  var flies=[];
-  (function(){
-    var n=mob?2:3;
-    for(var i=0;i<n;i++){
-      var wv=document.createElement('div');wv.className='dress-fly';
-      wv.style.width=((mob?26:34)+Math.random()*10)+'px';
-      var im=document.createElement('img');im.src='assets/flies/b'+((i%3)+1)+'.webp';im.alt='';wv.appendChild(im);
-      stage.appendChild(wv);
-      flies.push({el:wv,cx:mob?50:64,cy:mob?28:40,ax:(mob?24:15)+Math.random()*7,ay:9+Math.random()*9,fx:0.05+Math.random()*0.035,fy:0.065+Math.random()*0.04,ph:Math.random()*6.28,wf:9+Math.random()*4,lastX:0});
-    }
-  })();
-
-  /* petal bursts — for her arrival, and for the curious cursor */
-  var bursts=[],burstDone=false;
-  function burst(xPct,yPct,n){
-    for(var i=0;i<n;i++){
-      var el=document.createElement('img');el.className='dress-burst';
-      el.src='assets/petals/p'+(1+Math.floor(Math.random()*8))+'.webp';el.alt='';
-      el.style.width=(10+Math.random()*14)+'px';
-      stage.appendChild(el);
-      var a=Math.random()*6.28,sp=10+Math.random()*22;
-      bursts.push({el:el,x:xPct,y:yPct,vx:Math.cos(a)*sp*0.7,vy:Math.sin(a)*sp*0.45-16,r:Math.random()*360,rv:Math.random()*260-130,life:1.6+Math.random()*1.2});
-    }
+  /* drifting petals across the light */
+  var mob=window.matchMedia?matchMedia('(max-width: 720px)').matches:false;
+  var N=mob?9:16, petals=[], W=hero.offsetWidth, H=hero.offsetHeight;
+  for(var i=0;i<N;i++){
+    var el=document.createElement('img');
+    el.src='assets/petals/p'+(1+Math.floor(Math.random()*8))+'.webp';
+    el.alt=''; el.loading='lazy';
+    var sc=(mob?16:20)+Math.random()*(mob?12:18);
+    el.style.width=sc.toFixed(0)+'px';
+    box.appendChild(el);
+    petals.push({el:el,x:Math.random()*100,y:Math.random()*120-20,v:6+Math.random()*10,
+      amp:8+Math.random()*22,freq:.25+Math.random()*.5,ph:Math.random()*6.28,
+      r0:Math.random()*360,rv:Math.random()*40-20,o:.5+Math.random()*.45});
   }
 
-  /* soft mouse parallax (desktop only) */
-  var mx=0,my=0;
-  if(!mob){addEventListener('mousemove',function(ev){mx=(ev.clientX/innerWidth-0.5)*18;my=(ev.clientY/innerHeight-0.5)*12},{passive:true})}
-
-  function clamp(v){return v<0?0:v>1?1:v}
-  function ease(t){return 1-Math.pow(1-t,3)}
-  var kicker=copy.querySelector('.kicker'),para=copy.querySelector('p'),btn=copy.querySelector('.btn');
-
-  var running=false,last=0,t=0;
-  function loop(ts){
-    if(!running){last=0;return}
-    requestAnimationFrame(loop);
-    var dt=last?Math.min((ts-last)/1000,0.05):0.016;last=ts;t+=dt;
-    var r=act.getBoundingClientRect(),vh=window.innerHeight||1,total=r.height-vh;
-    var p=total>0?clamp(-r.top/total):0;
-
-    /* she's already peeking on load — the scroll walks her in */
-    var e=ease(clamp(0.14+p*1.65));
-    img.style.opacity=clamp(0.2+e*1.1);
-    var mpos=(e*100)+'% 0';
-    img.style.webkitMaskPosition=mpos;img.style.maskPosition=mpos;
-    var bob=Math.sin(t*1.1)*6*e,tilt=Math.sin(t*0.7)*0.7*e,par=0.3+0.7*e;
-    wrap.style.transform='translate('+(38-38*e)+'%,-50%) translate('+(mx*par).toFixed(1)+'px,'+(my*par+bob).toFixed(1)+'px) rotate('+((5-5*e)+tilt).toFixed(2)+'deg)';
-
-    /* the aisle she walked — slower parallax + slow zoom, like moving forward */
-    if(path){
-      path.style.opacity=clamp((e-0.05)*1.5);
-      path.style.transform='translate('+(mx*0.22).toFixed(1)+'px,'+(my*0.18+Math.sin(t*0.5)*3).toFixed(1)+'px) scale('+(1+p*0.07).toFixed(3)+')';
-    }
-
-    /* petal rain — alive even when the page rests */
-    for(var i=0;i<petals.length;i++){
-      var q=petals[i];
-      q.y+=q.v*dt*(1+e*0.6);
-      if(q.y>112){q.y=-14;q.x=3+Math.random()*92;q.el.style.left=q.x+'%'}
-      q.el.style.opacity=0.9;
-      q.el.style.transform='translate('+(Math.sin(t*q.freq+q.ph)*q.amp).toFixed(1)+'px,'+q.y.toFixed(2)+'vh) rotate('+(q.r0+t*q.rv).toFixed(1)+'deg)';
-    }
-
-    var sw=stage.clientWidth,sh=stage.clientHeight;
-
-    /* gold dust drifts upward, twinkling */
-    for(var di=0;di<dust.length;di++){
-      var gd=dust[di];
-      gd.y-=gd.v*dt;if(gd.y<-4){gd.y=104;gd.x=Math.random()*100}
-      gd.el.style.opacity=((0.25+0.55*Math.abs(Math.sin(t*gd.tw+gd.ph)))*(0.35+0.65*e)).toFixed(3);
-      gd.el.style.transform='translate('+(gd.x/100*sw+Math.sin(t*gd.freq+gd.ph)*gd.amp).toFixed(1)+'px,'+(gd.y/100*sh).toFixed(1)+'px)';
-    }
-
-    /* butterflies — flap, drift, follow her in */
-    for(var fi=0;fi<flies.length;fi++){
-      var fl=flies[fi];
-      var fpx=(fl.cx+Math.sin(t*fl.fx*6.28+fl.ph)*fl.ax)/100*sw;
-      var fpy=(fl.cy+Math.sin(t*fl.fy*6.28+fl.ph*1.7)*fl.ay)/100*sh;
-      var dir=fpx>=fl.lastX?1:-1;fl.lastX=fpx;
-      var flap=0.35+0.65*Math.abs(Math.sin(t*fl.wf+fl.ph));
-      fl.el.style.opacity=(clamp((e-0.1)*1.5)*0.95).toFixed(3);
-      fl.el.style.transform='translate('+fpx.toFixed(1)+'px,'+fpy.toFixed(1)+'px) rotate('+(Math.sin(t*0.9+fl.ph)*14).toFixed(1)+'deg) scaleX('+(dir*flap).toFixed(3)+')';
-    }
-
-    /* she arrived — one soft petal burst */
-    if(!burstDone&&e>0.96){burstDone=true;burst(mob?58:72,mob?36:44,12)}
-    for(var bi=bursts.length-1;bi>=0;bi--){
-      var bb=bursts[bi];
-      bb.life-=dt;
-      if(bb.life<=0){bb.el.remove();bursts.splice(bi,1);continue}
-      bb.x+=bb.vx*dt;bb.y+=bb.vy*dt;bb.vy+=26*dt;bb.r+=bb.rv*dt;
-      bb.el.style.opacity=Math.min(1,bb.life/0.9).toFixed(3);
-      bb.el.style.transform='translate('+(bb.x/100*sw).toFixed(1)+'px,'+(bb.y/100*sh).toFixed(1)+'px) rotate('+bb.r.toFixed(1)+'deg)';
-    }
-
-    /* the hero hands the stage to her */
-    var ho=1-ease(clamp((p-0.26)/0.2));
-    hero.style.opacity=ho;hero.style.translate='0 '+(-26*(1-ho)).toFixed(1)+'px';
-    hero.style.visibility=ho<0.03?'hidden':'visible';
-    hero.style.pointerEvents=ho<0.5?'none':'auto';
-
-    var mo=ease(clamp((p-0.46)/0.12));
-    copy.style.opacity=mo;copy.style.pointerEvents=p>0.6?'auto':'none';
-    var kk=ease(clamp((p-0.48)/0.12));
-    kicker.style.opacity=kk;kicker.style.translate='0 '+(10-10*kk).toFixed(1)+'px';
-    var c=clamp((p-0.52)/0.3);
-    for(var j=0;j<chars.length;j++){
-      var tt=ease(clamp((c*(chars.length+6)-j)/6));
-      chars[j].style.opacity=tt;
-      chars[j].style.translate='0 '+(0.55-0.55*tt).toFixed(3)+'em';
-    }
-    var pk=ease(clamp((p-0.66)/0.15));
-    para.style.opacity=pk;para.style.translate='0 '+(14-14*pk).toFixed(1)+'px';
-
-    /* the wax-seal badge stamps in */
-    var bk=ease(clamp((p-0.76)/0.18));
-    btn.style.opacity=bk;btn.style.translate='0 '+(14-14*bk).toFixed(1)+'px';
-    if(badge){badge.style.opacity=bk;badge.style.transform='scale('+(0.5+0.5*bk)+') rotate('+(-24+24*bk)+'deg)'}
-    if(ribbon){ribbon.style.height=(p*100)+'%'}
+  /* light parallax: the dress leans toward the pointer */
+  var tx=0,ty=0,cx=0,cy=0;
+  if(!mob){
+    hero.addEventListener('pointermove',function(e){
+      var r=hero.getBoundingClientRect();
+      tx=((e.clientX-r.left)/r.width-.5)*-26;
+      ty=((e.clientY-r.top)/r.height-.5)*-16;
+    },{passive:true});
+    hero.addEventListener('pointerleave',function(){ tx=0;ty=0; },{passive:true});
   }
-  var io=new IntersectionObserver(function(es){es.forEach(function(en){
-    if(en.isIntersecting){if(!running){running=true;last=0;requestAnimationFrame(loop)}}
-    else{running=false}
-  })},{rootMargin:'120px'});
-  io.observe(act);
 
-  /* the curious cursor gets petals */
-  if(!mob&&btn){btn.addEventListener('mouseenter',function(){
-    var br=btn.getBoundingClientRect(),sr=stage.getBoundingClientRect();
-    burst(((br.left+br.width/2)-sr.left)/sr.width*100,(br.top-sr.top)/sr.height*100,6);
-  })}
+  var sy=0;
+  window.addEventListener('scroll',function(){ sy=window.pageYOffset||0; },{passive:true});
+  window.addEventListener('resize',function(){ W=hero.offsetWidth; H=hero.offsetHeight; },{passive:true});
+
+  var last=performance.now(), t=0, running=true;
+  var io=new IntersectionObserver(function(en){ running=en[0].isIntersecting; },{threshold:0});
+  io.observe(hero);
+
+  function frame(now){
+    var dt=Math.min(.05,(now-last)/1000); last=now; t+=dt;
+    if(running){
+      cx+=(tx-cx)*.06; cy+=(ty-cy)*.06;
+      var drift=Math.min(60,sy*.06);
+      dress.style.setProperty('--px',cx.toFixed(2)+'px');
+      dress.style.setProperty('--py',(cy-drift).toFixed(2)+'px');
+      for(var i=0;i<petals.length;i++){
+        var p=petals[i];
+        p.y+=p.v*dt;
+        if(p.y>118){ p.y=-14; p.x=Math.random()*100; }
+        var x=(p.x/100)*W+Math.sin(t*p.freq*6.28+p.ph)*p.amp;
+        var y=(p.y/100)*H;
+        p.el.style.opacity=p.o.toFixed(2);
+        p.el.style.transform='translate3d('+x.toFixed(1)+'px,'+y.toFixed(1)+'px,0) rotate('+(p.r0+t*p.rv).toFixed(1)+'deg)';
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
 })();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/animejs@4/lib/anime.iife.min.js"></script>
